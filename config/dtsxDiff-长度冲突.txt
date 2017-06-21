@@ -1,0 +1,40 @@
+HIS.VW_MZBRJSK.khyh varchar(64)
+	ODS.VW_MZBRJSK.khyh varchar(32)
+		dtsx-source\HIS\CDC_MZ\VW_MZBRJSK.dtsx
+			<outputColumn id="4988" name="khyh" description="" lineageId="4988" precision="0" scale="0" length="64"
+			[khyh] [varchar](32)
+			<externalMetadataColumn id="4987" name="khyh" description="" precision="0" scale="0" length="64"
+			<outputColumn id="4989" name="khyh" description="" lineageId="4989" precision="0" scale="0" length="64"
+
+HIS.VW_MZBRJSK.khyh varchar(64)
+	ODS.VW_MZBRJSK.khyh varchar(32)
+		dtsx-source\HIS\ODS\VW_MZBRJSK.dtsx
+			[khyh] [varchar](32)
+			<outputColumn id="5692" name="khyh" description="" lineageId="5692" precision="0" scale="0" length="64"
+			<externalMetadataColumn id="5690" name="khyh" description="" precision="0" scale="0" length="64"
+			<outputColumn id="5691" name="khyh" description="" lineageId="5691" precision="0" scale="0" length="64"
+
+HIS.ZY_BRSYK.pzh2 varchar(32)
+	ODS.ZY_BRSYK.pzh2 varchar(5)
+		dtsx-target\ZY_BRSYK.dtsx
+			<externalMetadataColumn id="4380" name="pzh2" description="" precision="0" scale="0" length="32"
+			<outputColumn id="4382" name="pzh2" description="" lineageId="4382" precision="0" scale="0" length="32"
+			<outputColumn id="4381" name="pzh2" description="" lineageId="4381" precision="0" scale="0" length="32"
+			[pzh2] [varchar](5)
+
+HIS.ZY_BRSYK.pzh2 varchar(32)
+	ODS.ZY_BRSYK.pzh2 varchar(5)
+		dtsx-source\HIS\CDC_ZY\ZY_BRSYK.dtsx
+			<externalMetadataColumn id="4380" name="pzh2" description="" precision="0" scale="0" length="32"
+			<outputColumn id="4382" name="pzh2" description="" lineageId="4382" precision="0" scale="0" length="32"
+			<outputColumn id="4381" name="pzh2" description="" lineageId="4381" precision="0" scale="0" length="32"
+			[pzh2] [varchar](5)
+
+HIS.ZY_BRSYK.pzh2 varchar(32)
+	ODS.ZY_BRSYK.pzh2 varchar(5)
+		dtsx-source\HIS\ODS\ZY_BRSYK.dtsx
+			<outputColumn id="6654" name="pzh2" description="" lineageId="6654" precision="0" scale="0" length="32"
+			<externalMetadataColumn id="6653" name="pzh2" description="" precision="0" scale="0" length="32"
+			<outputColumn id="6655" name="pzh2" description="" lineageId="6655" precision="0" scale="0" length="32"
+			[pzh2] [varchar](5)
+

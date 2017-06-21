@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bizDatabase>
+
+    <!-- 数据库服务器IP -->
+    <server>127.0.0.1</server>
+
+    <!-- 数据库实例名 -->
+    <!-- <instance></instance> -->
+
+    <!-- 数据库端口 -->
+    <!-- <port>1433</port> -->
+
+    <!-- 用户名 -->
+    <userName>sa</userName>
+
+    <!-- 密码 -->
+    <password>sa</password>
+
+    <!-- 数据库名 -->
+    <name>CM_DataCenter</name>
+
+</bizDatabase>
