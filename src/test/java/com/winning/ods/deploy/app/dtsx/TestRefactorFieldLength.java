@@ -1,6 +1,6 @@
 package com.winning.ods.deploy.app.dtsx;
 
-import com.winning.ods.deploy.app.dtsx.core.ReplaceFieldLength;
+import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -24,12 +24,12 @@ public class TestReplaceFieldLength {
         byte[] targetBytes = Files.readAllBytes(targetPath);
         String targetContent = new String(targetBytes);
 
-        ReplaceFieldLength replaceFieldLength = new ReplaceFieldLength();
-        replaceFieldLength.setFieldName("pzh2");
-        replaceFieldLength.setDataType("varchar");
-        replaceFieldLength.setTargetLength(128);
-        replaceFieldLength.setContent(sourceContent);
-        String replacedContent = replaceFieldLength.process();
+        RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
+        refactorFieldLength.setFieldName("pzh2");
+        refactorFieldLength.setDataType("varchar");
+        refactorFieldLength.setTargetLength(128);
+        refactorFieldLength.setContent(sourceContent);
+        String replacedContent = refactorFieldLength.process();
 
         Assert.assertEquals(targetContent, replacedContent);
     }

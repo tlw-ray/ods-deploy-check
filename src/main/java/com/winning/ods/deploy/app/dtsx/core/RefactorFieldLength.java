@@ -34,8 +34,8 @@ public class ReplaceFieldLength {
     Map<String ,String> replaceTaskMap;
 
     //输出
-    Set<Pair<String, String>> replaceSet;
-    Set<String> lengthSet;
+    Set<Pair<String, String>> replaceSet;   //替换了哪些内容
+    Set<String> lengthSet;                  //替换的原长度集合
 
     public String process(){
         replaceTaskMap = new HashMap();
@@ -104,7 +104,7 @@ public class ReplaceFieldLength {
     }
 
     private void log(String replaceFrom, String replaceTo) {
-        logger.info("替换: " + replaceFrom + "\t 为: " + replaceTo);
+        logger.debug("替换: " + replaceFrom + "\t 为: " + replaceTo);
     }
 
     public void setContent(String content) {
