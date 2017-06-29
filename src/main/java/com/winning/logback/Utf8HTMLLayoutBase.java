@@ -17,14 +17,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class HTMLLayoutBase<E> extends LayoutBase<E> {
+public abstract class Utf8HTMLLayoutBase<E> extends LayoutBase<E> {
     protected String pattern;
     protected Converter<E> head;
     protected String title = "Logback Log Messages";
     protected CssBuilder cssBuilder;
     protected long counter = 0L;
 
-    public HTMLLayoutBase() {
+    public Utf8HTMLLayoutBase() {
     }
 
     public void setPattern(String conversionPattern) {
@@ -103,6 +103,7 @@ public abstract class HTMLLayoutBase<E> extends LayoutBase<E> {
         sbuf.append("<html>");
         sbuf.append(CoreConstants.LINE_SEPARATOR);
         sbuf.append("  <head>");
+        sbuf.append("<meta content=\"text/html; charset=utf-8\" http-equiv=\"content-type\" />");
         sbuf.append(CoreConstants.LINE_SEPARATOR);
         sbuf.append("    <title>");
         sbuf.append(this.title);

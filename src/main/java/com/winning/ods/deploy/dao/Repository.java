@@ -43,7 +43,7 @@ public class Repository {
             try(Connection connection = DriverManager.getConnection(connectionStr)){
                 String tableNameConditionStr = SqlUtil.createStringInCondition(tableNames);
                 String query = "select TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, ORDINAL_POSITION from " + bizDatabase.getName() + ".INFORMATION_SCHEMA.COLUMNS where TABLE_NAME in " + tableNameConditionStr;
-                logger.info(query);
+                logger.debug(query);
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(query);
                 while(resultSet.next()){
@@ -75,10 +75,10 @@ public class Repository {
 
     public boolean hasRow(String tableName) throws SQLException {
         String connectionStr = bizDatabase.getJdbcConnectionString();
-        logger.info(connectionStr);
+        logger.debug(connectionStr);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
             String query = "SELECT TOP 1 1 FROM " + tableName;
-            logger.info(query);
+            logger.debug(query);
             ResultSet resultSet = connection.createStatement().executeQuery(query);
             return resultSet.next();
         }
@@ -86,9 +86,9 @@ public class Repository {
 
     public boolean executeQuery(String sql) throws SQLException {
         String connectionStr = bizDatabase.getJdbcConnectionString();
-        logger.info(connectionStr);
+        logger.debug(connectionStr);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
-            logger.info(sql);
+            logger.debug(sql);
             return connection.createStatement().execute(sql);
         }
     }

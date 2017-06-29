@@ -34,7 +34,7 @@ public class Database {
         //jdbc:sqlserver://;servername=server_name;integratedSecurity=true;authenticationScheme=JavaKerberos
         StringBuilder builder = new StringBuilder("jdbc:sqlserver://");
         builder.append(getServer());
-        if(!StringUtils.isEmpty(instance)){
+        if(StringUtils.isNotEmpty(instance)){
             builder.append("\\");
             builder.append(instance);
         }
@@ -65,7 +65,48 @@ public class Database {
         return result;
     }
 
+    public String getADOConnectionString(){
+        //Data Source=${server}/${instance}
+        // :${port?string("######")}
+        // ;User ID=${userName}
+        // ;password=${password}
+        // ;Initial Catalog=${initialCatalog}
+        // ;Persist Security Info=True;
+        StringBuilder stringBuilder = new StringBuilder("Data Source=");
+        stringBuilder.append(getServer());
 
+        if(StringUtils.isNotEmpty(getInstance())){
+            stringBuilder.append("\\");
+            stringBuilder.append(instance);
+        }
+
+        if(getPort() != null){
+            stringBuilder.append(":");
+            stringBuilder.append(getPort());
+        }
+
+        if(StringUtils.isNotEmpty(getUserName())){
+            stringBuilder.append(";User ID=");
+            stringBuilder.append(getUserName());
+        }
+
+        if(StringUtils.isNotEmpty(getPassword())){
+            stringBuilder.append(";password=");
+            stringBuilder.append(getPassword());
+        }
+
+        if(StringUtils.isNotEmpty(getName())){
+            stringBuilder.append(";Initial Catalog=");
+            stringBuilder.append(getName());
+        }
+
+        stringBuilder.append(";Persist Security Info=True;");
+        return stringBuilder.toString();
+    }
+
+    public String getOLEDBConnectionString(){
+        return getADOConnectionString() + "Provider=SQLNCLI10.1;";
+    }
 
     public String getServer() {
         return server;

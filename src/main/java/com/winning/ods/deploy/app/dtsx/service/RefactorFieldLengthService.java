@@ -1,7 +1,7 @@
 package com.winning.ods.deploy.app.dtsx.service;
 
 import com.winning.ods.deploy.app.check.core.FieldChecker;
-import com.winning.ods.deploy.app.dtsx.core.ReplaceFieldLength;
+import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
 import com.winning.ods.deploy.app.dtsx.core.TableAlter;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
 import com.winning.ods.deploy.dao.EtlRepository;
@@ -14,6 +14,7 @@ import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -72,27 +73,57 @@ public class RefactorFieldLengthService {
                 logger.info(info);
 
                 if(dataType.equals("char") || dataType.equals("varchar") || dataType.equals("nvarchar")){
-                    tableFileMapping.getPathSet(tableKey).forEach(path -> {
-                        //进行DTSX文件中字段长度的替换处理
+                    Set<Path> pathSet = tableFileMapping.getPathSet(tableKey);
+                    if(pathSet != null && pathSet.size() > 0){
+                        pathSet.forEach(path -> {
+                            //进行DTSX文件中字段长度的替换处理
+                            try {
+                                byte[] bytes = Files.readAllBytes(path);
+                                String sourceContent = new String(bytes);
+                                RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
+                                refactorFieldLength.setContent(sourceContent);
+                                refactorFieldLength.setFieldName(odsFieldName);
+                                refactorFieldLength.setDataType(dataType);
+                                refactorFieldLength.setTargetLength(bizFieldLength);
+                                String targetContent = refactorFieldLength.process();
+                                Files.write(path, targetContent.getBytes(), StandardOpenOption.WRITE);
+                            } catch (IOException e) {
+                                ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
+                                warnST.add("path", path.toString());
+                                warnST.add("odsFieldName", odsFieldName);
+                                warnST.add("bizFieldLength", bizFieldLength);
+                                String warn = warnST.render();
+                                logger.warn(warn, e);
+                            }
+                        });
+
+                        //输出对ODS数据库对应字段进行长度扩充
+                        TableAlter tableAlter = new TableAlter();
+                        tableAlter.setOdsRepository(odsRepository);
+                        tableAlter.setTableName(odsTableName);
+                        tableAlter.setFieldName(odsFieldName);
+                        tableAlter.setDataType(dataType);
+                        tableAlter.setTargetLength(bizFieldLength);
                         try {
-                            byte[] bytes = Files.readAllBytes(path);
-                            String sourceContent = new String(bytes);
-                            ReplaceFieldLength replaceFieldLength = new ReplaceFieldLength();
-                            replaceFieldLength.setContent(sourceContent);
-                            replaceFieldLength.setFieldName(odsFieldName);
-                            replaceFieldLength.setDataType(dataType);
-                            replaceFieldLength.setTargetLength(bizFieldLength);
-                            String targetContent = replaceFieldLength.process();
-                            Files.write(path, targetContent.getBytes(), StandardOpenOption.WRITE);
-                        } catch (IOException e) {
-                            ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
-                            warnST.add("path", path.toString());
+                            tableAlter.process();
+                        } catch (Exception e) {
+                            ST warnST = new ST("对ODS中对应业务系统'<bizName>'的表'<odsTableName>'的'<odsFieldName>'字段长度由'<odsFieldLength>'扩为'<bizFieldLength>'时发生异常。");
+                            warnST.add("bizName", bizName);
+                            warnST.add("odsTableName", odsTableName);
                             warnST.add("odsFieldName", odsFieldName);
+                            warnST.add("odsFieldLength", odsFieldLength);
                             warnST.add("bizFieldLength", bizFieldLength);
                             String warn = warnST.render();
                             logger.warn(warn, e);
                         }
-                    });
+                    }else{
+                        //警告:当前路径下没有找到文件
+                        ST warnST = new ST("当前路径下没有找到任何名为<odsTableName>.dtsx的文件，无法对<odsTableName>表的字段<odsFieldName>长度做更改.");
+                        warnST.add("odsTableName", odsTableName.toUpperCase());//根据约定表名全部转大写
+                        warnST.add("odsFieldName", odsFieldName);
+                        logger.warn(warnST.render());
+                    }
+
                 }else{
                     ST warnST = new ST("暂时不支持在ODS中对业务系统'<bizName>'的表'<odsTableName>'的'<odsFieldType>'类型的字段'<odsFieldName>'进行长度类型转换，目前仅支持char,varchar,nvarchar类型。");
                     warnST.add("bizName", bizName);
@@ -101,26 +132,6 @@ public class RefactorFieldLengthService {
                     warnST.add("odsFieldType", dataType);
                     String warn = warnST.render();
                     logger.warn(warn);
-                }
-
-                //输出对ODS数据库对应字段进行长度扩充
-                TableAlter tableAlter = new TableAlter();
-                tableAlter.setOdsRepository(odsRepository);
-                tableAlter.setTableName(odsTableName);
-                tableAlter.setFieldName(odsFieldName);
-                tableAlter.setDataType(dataType);
-                tableAlter.setTargetLength(bizFieldLength);
-                try {
-                    tableAlter.process();
-                } catch (Exception e) {
-                    ST warnST = new ST("对ODS中对应业务系统'<bizName>'的表'<odsTableName>'的'<odsFieldName>'字段长度由'<odsFieldLength>'扩为'<bizFieldLength>'时发生异常。");
-                    warnST.add("bizName", bizName);
-                    warnST.add("odsTableName", odsTableName);
-                    warnST.add("odsFieldName", odsFieldName);
-                    warnST.add("odsFieldLength", odsFieldLength);
-                    warnST.add("bizFieldLength", bizFieldLength);
-                    String warn = warnST.render();
-                    logger.warn(warn, e);
                 }
             }
         });

@@ -13,14 +13,14 @@ import java.nio.file.Paths;
  * Created by tlw@winning.com.cn on 2017/6/19.
  * <outputColumn id="\d+" name="pzh2" description=".*" lineageId="4382" precision=".*" scale=".*" length="32"
  */
-public class TestReplaceFieldLength {
+public class TestRefactorFieldLength {
     @Test
     public void testReplaceFieldLength() throws IOException {
-        Path sourcePath = Paths.get("test-data/ZY_BRSYK.dtsx");
+        Path sourcePath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx");
         byte[] sourceBytes = Files.readAllBytes(sourcePath);
         String sourceContent = new String(sourceBytes);
 
-        Path targetPath = Paths.get("test-data/ZY_BRSYK.dtsx.target");
+        Path targetPath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx.target");
         byte[] targetBytes = Files.readAllBytes(targetPath);
         String targetContent = new String(targetBytes);
 

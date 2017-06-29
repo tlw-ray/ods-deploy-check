@@ -24,6 +24,10 @@ public class TestDatabase {
         EtlRepository etlRepository = new EtlRepository();
         Database database = etlRepository.getBizDatabase();
         boolean result = SqlServer.testConnect(database);
+        System.out.println(database.getJdbcConnectionString());
+        System.out.println(database.getADOConnectionString());
+        System.out.println(database.getOLEDBConnectionString());
         Assert.assertTrue(result);
     }
+
 }

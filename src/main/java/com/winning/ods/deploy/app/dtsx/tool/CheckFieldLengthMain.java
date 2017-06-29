@@ -1,23 +1,19 @@
 package com.winning.ods.deploy.app.dtsx.tool;
 
 import com.winning.ods.deploy.app.check.core.FieldChecker;
-import com.winning.ods.deploy.app.dtsx.core.ReplaceFieldLength;
+import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
-import com.winning.ods.deploy.app.dtsx.service.RefactorFieldLengthService;
 import com.winning.ods.deploy.dao.EtlRepository;
 import com.winning.ods.deploy.dao.Repository;
 import com.winning.ods.deploy.domain.Field;
 import org.javatuples.Pair;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.logging.LogManager;
 
 /**
  * Created by tlw@winning.com.cn on 2017/6/20.
@@ -26,11 +22,6 @@ import java.util.logging.LogManager;
 public class CheckFieldLengthMain {
 
     public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-
-        File logFile = new File("config/log.properties");
-        FileInputStream fileInputStream = new FileInputStream(logFile);
-        LogManager.getLogManager().readConfiguration(fileInputStream);
-
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
         EtlRepository etlRepository = new EtlRepository();
@@ -76,13 +67,13 @@ public class CheckFieldLengthMain {
                                 try {
                                     byte[] bytes = Files.readAllBytes(path);
                                     String content = new String(bytes);
-                                    ReplaceFieldLength replaceFieldLength = new ReplaceFieldLength();
-                                    replaceFieldLength.setDataType(bizDataType);
-                                    replaceFieldLength.setFieldName(bizFieldName);
-                                    replaceFieldLength.setTargetLength(bizFieldLength);
-                                    replaceFieldLength.setContent(content);
-                                    replaceFieldLength.process();
-                                    if(replaceFieldLength.getLengthSet().size() > 1) {
+                                    RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
+                                    refactorFieldLength.setDataType(bizDataType);
+                                    refactorFieldLength.setFieldName(bizFieldName);
+                                    refactorFieldLength.setTargetLength(bizFieldLength);
+                                    refactorFieldLength.setContent(content);
+                                    refactorFieldLength.process();
+                                    if(refactorFieldLength.getReplaceSet().size() > 0) {
                                         Field odsField = odsFieldMap.get(tableField);
                                         String odsTableName = odsField.getTableName();
                                         String odsFieldName = odsField.getFieldName();
@@ -91,7 +82,7 @@ public class CheckFieldLengthMain {
                                         diffLog.println(bizName + "." + bizTableName + "." + bizFieldName + " " + bizDataType + "(" + bizFieldLength + ")");
                                         diffLog.println("\t" + odsName + "." + odsTableName + "." + odsFieldName + " " + odsDataType + "(" + odsFieldLength + ")");
                                         diffLog.println("\t\t" + path.toString());
-                                        replaceFieldLength.getReplaceSet().forEach(pair -> diffLog.println("\t\t\t" + pair.getValue0()));
+                                        refactorFieldLength.getReplaceSet().forEach(pair -> diffLog.println("\t\t\t" + pair.getValue0()));
                                         diffLog.println();
                                     }
                                 } catch (IOException e) {

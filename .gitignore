@@ -1,0 +1,7 @@
+.idea/
+target/
+*.iml
+HOSPITAL_DW/
+ConfigFile/
+ods-tool-release/
+releases/

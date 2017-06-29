@@ -26,22 +26,23 @@ public class TableAlter {
     protected int targetLength;
 
     public void process() throws SQLException, ClassNotFoundException {
+//        //仅输出改表语句
         String alterTableQuery = SqlUtil.generateAlterTableQuery(tableName, fieldName, dataType, targetLength);
-        System.out.println(alterTableQuery);
+//        System.out.println(alterTableQuery);
 
-//        //检查表中是否已经有数据
-//        if(odsRepository.hasRow(tableName)){
-//            ST warnMessageST = new ST("DOS表'<tableName>'已经包含数据，请根据情况手动执行语句<alterTable>来修改字段<fieldName>的长度为<targetLength>。");
-//            warnMessageST.add("tableName", tableName);
-//            warnMessageST.add("alterTable", alterTableQuery);
-//            warnMessageST.add("fieldName", fieldName);
-//            warnMessageST.add("targetLength", targetLength);
-//            String warnMessage = warnMessageST.render();
-//            logger.warn(warnMessage);
-//        }else{
-//            odsRepository.executeQuery(alterTableQuery);
-//            logger.info(alterTableQuery);
-//        }
+        //检查表中是否已经有数据
+        if(odsRepository.hasRow(tableName)){
+            ST warnMessageST = new ST("DOS表'<tableName>'已经包含数据，请根据情况手动执行语句<alterTable>来修改字段<fieldName>的长度为<targetLength>。");
+            warnMessageST.add("tableName", tableName);
+            warnMessageST.add("alterTable", alterTableQuery);
+            warnMessageST.add("fieldName", fieldName);
+            warnMessageST.add("targetLength", targetLength);
+            String warnMessage = warnMessageST.render();
+            logger.warn(warnMessage);
+        }else{
+            odsRepository.executeQuery(alterTableQuery);
+            logger.info(alterTableQuery);
+        }
     }
 
     public void setOdsRepository(Repository odsRepository) {

@@ -5,24 +5,16 @@ import com.winning.ods.deploy.dao.Repository;
 import com.winning.ods.deploy.domain.OrganizationCode;
 import com.winning.ods.deploy.app.check.service.ChecksService;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.LogManager;
 
 /**
  * Created by tlw@winning.com.cn on 2017/6/13.
  */
 public class FieldCheckMain {
 
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-
-        File logFile = new File("config/log.properties");
-        FileInputStream fileInputStream = new FileInputStream(logFile);
-        LogManager.getLogManager().readConfiguration(fileInputStream);
-
+    public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
         EtlRepository etlRepository = new EtlRepository();

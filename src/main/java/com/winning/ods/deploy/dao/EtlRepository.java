@@ -47,8 +47,8 @@ public class EtlRepository extends Repository{
         st.add("ods", DB_ODS);
         String sql = st.render();
         String connectionStr = getBizDatabase().getJdbcConnectionString();
-        logger.info(connectionStr);
-        logger.info(sql);
+        logger.debug(connectionStr);
+        logger.debug(sql);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             if(resultSet.next()){
@@ -63,7 +63,7 @@ public class EtlRepository extends Repository{
                 odsDatabase.setInstance(resultSet.getString(5));
                 odsDatabase.setBizName(DB_ODS);
                 odsDatabase.setName(resultSet.getString(6));
-                logger.info(odsDatabase.toString());
+                logger.debug(odsDatabase.toString());
                 Repository odsRepository = new Repository();
                 odsRepository.setBizDatabase(odsDatabase);
                 return odsRepository;
@@ -94,8 +94,8 @@ public class EtlRepository extends Repository{
         st.add("platformDatabases", SqlUtil.createStringInCondition(platformDatabaseSet));
         String sql = st.render();
         String connectionStr = getBizDatabase().getJdbcConnectionString();
-        logger.info(connectionStr);
-        logger.info(sql);
+        logger.debug(connectionStr);
+        logger.debug(sql);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             List<Repository> result = new ArrayList();
@@ -111,12 +111,12 @@ public class EtlRepository extends Repository{
                 bizDatabase.setInstance(resultSet.getString(5));
                 bizDatabase.setName(resultSet.getString(6));
                 bizDatabase.setBizName(resultSet.getString(7));
-                logger.info(bizDatabase.toString());
+                logger.debug(bizDatabase.toString());
                 Repository bizRepository = new Repository();
                 bizRepository.setBizDatabase(bizDatabase);
                 result.add(bizRepository);
             }
-            logger.info("count: " + result.size());
+            logger.debug("count: " + result.size());
             return result;
         }
     }
@@ -133,7 +133,7 @@ public class EtlRepository extends Repository{
         st.add("databaseName", Table.FIELD_DATABASE_NAME);
         st.add("bizDatabaseName", bizDatabaseName);
         String sql = st.render();
-        logger.info(sql);
+        logger.debug(sql);
         try(Connection connection = DriverManager.getConnection(getBizDatabase().getJdbcConnectionString())){
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -144,7 +144,7 @@ public class EtlRepository extends Repository{
                 Pair<String, String> tableField = new Pair(tableName, fieldName);
                 defineFields.add(tableField);
             }
-            logger.info("count: " + defineFields.size());
+            logger.debug("count: " + defineFields.size());
             return defineFields;
         }
     }
@@ -152,8 +152,8 @@ public class EtlRepository extends Repository{
     public List<OrganizationCode> fetchOrganizationCodeList() throws SQLException {
         String connectionStr = bizDatabase.getJdbcConnectionString();
         String sql = "select code, name, parentid from [CM_ORGENIZATION]";
-        logger.info(connectionStr);
-        logger.info(sql);
+        logger.debug(connectionStr);
+        logger.debug(sql);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
             ResultSet resultSet = connection.createStatement().executeQuery(sql);
             List<OrganizationCode> organizationCodeList = new ArrayList();
@@ -178,8 +178,8 @@ public class EtlRepository extends Repository{
                 "dest_tablename, dest_colname, dest_coldatatype, dest_collength, dest_colprecision, " +
                 "sour_coldatatype, sour_collength, sour_colprecision," +
                 "lsnid, infocode, updatetime) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        logger.info(connectionStr);
-        logger.info(sql);
+        logger.debug(connectionStr);
+        logger.debug(sql);
         try(Connection connection = DriverManager.getConnection(connectionStr)){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             for(FieldCheckResult fieldCheckResult : fieldCheckResultList){

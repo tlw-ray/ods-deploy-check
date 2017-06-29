@@ -22,7 +22,9 @@ public class SqlServer {
         String connectionStr = database.getJdbcConnectionString();
         logger.info(connectionStr);
         Connection connection = DriverManager.getConnection(connectionStr);
-        connection.createStatement().executeQuery("select 1");
+        String query = "select 1";
+        connection.createStatement().executeQuery(query);
+        logger.info(query);
         connection.close();
         return true;
     }

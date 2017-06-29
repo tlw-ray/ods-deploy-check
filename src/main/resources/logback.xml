@@ -1,27 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="${user.dir}/logs/" />
-    <!-- 控制台输出 -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- 日志输出编码 -->
-        <Encoding>UTF-8</Encoding>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%date %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
-        </layout>
-    </appender>
+    <timestamp key="bySecond" datePattern="yyyyMMddHHmmss"/>
+    <!--
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>ods-config-gen.log</file>
+        <file>${user.dir}\logs\${applicationName}${bySecond}.log</file>
+        <append>false</append>
         <encoder>
-            <pattern>%date %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+            <charset>UTF-8</charset>
+            <pattern>[%10.10logger] %5level: %message%n</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+    -->
+    <appender name="HTML" class="ch.qos.logback.core.FileAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <charset>UTF-8</charset>
+            <layout class="com.winning.logback.Utf8HTMLLayout">
+                <pattern>%relative%level%logger%msg</pattern>
+            </layout>
+        </encoder>
+        <file>${user.dir}\logs\${applicationName}.html</file>
+        <append>false</append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
     </appender>
 
-    <!-- 日志输出级别 -->
-    <root level="INFO">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
-    </root>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%20.20logger] %5level: %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
 
+    <root level="DEBUG">
+        <appender-ref ref="HTML" />
+        <appender-ref ref="STDOUT" />
+    </root>
 </configuration>
