@@ -6,7 +6,6 @@ import com.winning.ods.deploy.domain.BizDatabase;
 import com.winning.ods.deploy.domain.OrganizationCode;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.LogManager;
 
 /**
  * Created by tlw@winning.com.cn on 2017/6/26.
@@ -68,6 +66,7 @@ public class GenerateConfigMain {
         //加载配置文件模板
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         cfg.setDefaultEncoding("UTF-8");
+        cfg.setOutputEncoding("UTF-8");//这里可能没有用处
         cfg.setDirectoryForTemplateLoading(new File("template"));
         Template template = cfg.getTemplate("ODSConfig_.dtsConfig.ftlh");
         Map<String, String> context = new HashMap();
@@ -93,7 +92,11 @@ public class GenerateConfigMain {
                 String configFilePath = "ConfigFile/ODS/ODSConfig_" + bizName + ".dtsConfig";
                 //生成模板
                 try {
-                    template.process(context, new FileWriter(configFilePath));
+                    StringWriter stringWriter = new StringWriter();
+                    template.process(context, stringWriter);
+                    String content = stringWriter.toString();
+                    Path path = Paths.get(configFilePath);
+                    Files.write(path, content.getBytes("UTF-8"));
                     logger.info("生成配置文件: " + configFilePath);
                 } catch (Exception e) {
                     logger.warn("生成配置文件异常: " + e.getMessage(), e);

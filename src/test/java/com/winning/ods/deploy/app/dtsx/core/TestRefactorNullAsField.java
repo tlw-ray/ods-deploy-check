@@ -102,6 +102,27 @@ public class TestRefactorNullAsField {
     }
 
     @Test
+    public void test_VW_MZCFK() throws IOException {
+        Path sourcePath = Paths.get("test-data/refactorNullAsField/VW_MZCFK.dtsx");
+        byte[] sourceBytes = Files.readAllBytes(sourcePath);
+        String sourceContent = new String(sourceBytes);
+
+        Path targetPath = Paths.get("test-data/refactorNullAsField/VW_MZCFK.dtsx.target");
+        byte[] targetBytes = Files.readAllBytes(targetPath);
+        String targetContent = new String(targetBytes);
+
+        Set<String> fieldNameSet = new HashSet();
+        fieldNameSet.add("kd_lxdh");
+
+        RefactorNullAsField refactorNullAsField = new RefactorNullAsField();
+        refactorNullAsField.setTableName("VW_MZCFK");
+        refactorNullAsField.setFieldNameSet(fieldNameSet);
+        String refactoredContent = refactorNullAsField.refactor(sourceContent);
+
+        Assert.assertEquals(targetContent, refactoredContent);
+    }
+
+    @Test
     public void testNullAsField(){
         String[] cases = new String[]{
                 "select null as field from table1",

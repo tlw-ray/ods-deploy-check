@@ -95,12 +95,14 @@ public class Database {
             stringBuilder.append(getPassword());
         }
 
+        stringBuilder.append(";Persist Security Info=True;");
+
         if(StringUtils.isNotEmpty(getName())){
-            stringBuilder.append(";Initial Catalog=");
+            stringBuilder.append("Initial Catalog=");
             stringBuilder.append(getName());
+            stringBuilder.append(";");
         }
 
-        stringBuilder.append(";Persist Security Info=True;");
         return stringBuilder.toString();
     }
 

@@ -43,7 +43,7 @@ public class RefactorNullAsField{
 
         //处理<property>形式的主要处于CDR中
         //判断如果是CDR的模式
-        String propertyPatternString = "<DTS:Property DTS:Name=\\\"Expression\\\">\\\"SELECT \\[\\_\\_\\$start_lsn\\][\\w\\W]*?FROM \\[cdc\\]\\.\\[\\w+" + tableName + "\\]";
+        String propertyPatternString = "<DTS:Property DTS:Name=\\\"Expression\\\">\\\"SELECT \\[\\_\\_\\$start_lsn\\][\\w\\W]*?FROM ";
         Pattern propertyPattern = Pattern.compile(propertyPatternString, Pattern.CASE_INSENSITIVE);
         Matcher propertyMatcher = propertyPattern.matcher(refactoredContent);
         while(propertyMatcher.find()){
@@ -75,7 +75,7 @@ public class RefactorNullAsField{
                 logger.warn("未能替换SQL: " + selectContent);
             }
         }else{
-            logger.info("没有找到预期模式的SQL语句: " + selectPatternString);
+            logger.debug("没有找到预期模式的SQL语句: " + selectPatternString);
         }
 
         String replacedContent = componentContent;
@@ -120,7 +120,7 @@ public class RefactorNullAsField{
                 }
 
                 if(notFound) {
-                    //判定是否有"[fieldName]"模式存在
+                    //在没有"[FIELDNAME] [fieldName]"模式存在的情况下判定是否有"[fieldName]"模式存在
                     Pattern fieldPattern = Pattern.compile("\\[?" + fieldNameRegex + "\\]?", Pattern.CASE_INSENSITIVE);
                     Matcher fieldMatcher = fieldPattern.matcher(selectContent);
                     replaceContent = fieldMatcher.replaceAll("NULL AS [" + fieldName + "]");
