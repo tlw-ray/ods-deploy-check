@@ -1,6 +1,7 @@
 .idea/
 target/
 *.iml
+*.zip
 HOSPITAL_DW/
 ConfigFile/
 ods-tool-release/

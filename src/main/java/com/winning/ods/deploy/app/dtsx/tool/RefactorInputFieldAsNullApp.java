@@ -64,7 +64,7 @@ public class RefactorInputFieldAsNullApp extends Application{
                         refactorNullAsField.setFieldNameSet(fieldNameSet);
                         String targetContent = refactorNullAsField.refactor(sourceContent);
 
-                        Files.write(path, targetContent.getBytes("UTF-8"), StandardOpenOption.WRITE);
+                        Files.write(path, targetContent.getBytes("UTF-8"), StandardOpenOption.CREATE_NEW);
                     } catch (IOException e) {
                         logger.warn("修改文件'{}'中'{}'表的'{}'字段在SELECT语句中为'NULL AS {}'时发生异常: {}", path.toString(), tableName, fieldName, fieldName, e);
                     }

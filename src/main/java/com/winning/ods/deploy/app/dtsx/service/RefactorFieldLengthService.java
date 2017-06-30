@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.stringtemplate.v4.ST;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Map;
@@ -77,24 +74,26 @@ public class RefactorFieldLengthService {
                     if(pathSet != null && pathSet.size() > 0){
                         pathSet.forEach(path -> {
                             //进行DTSX文件中字段长度的替换处理
-                            try {
-                                byte[] bytes = Files.readAllBytes(path);
-                                String sourceContent = new String(bytes);
+//                            try {
+//                                byte[] bytes = Files.readAllBytes(path);
+//                                String sourceContent = new String(bytes);
                                 RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-                                refactorFieldLength.setContent(sourceContent);
+//                                refactorFieldLength.setContent(sourceContent);
+                                refactorFieldLength.setSourcePath(path);
                                 refactorFieldLength.setFieldName(odsFieldName);
                                 refactorFieldLength.setDataType(dataType);
                                 refactorFieldLength.setTargetLength(bizFieldLength);
-                                String targetContent = refactorFieldLength.process();
-                                Files.write(path, targetContent.getBytes(), StandardOpenOption.WRITE);
-                            } catch (IOException e) {
-                                ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
-                                warnST.add("path", path.toString());
-                                warnST.add("odsFieldName", odsFieldName);
-                                warnST.add("bizFieldLength", bizFieldLength);
-                                String warn = warnST.render();
-                                logger.warn(warn, e);
-                            }
+                                refactorFieldLength.process();
+//                                Files.delete(path); //避免重新写入的文件短于原有文件，先删除再写入
+//                                Files.write(path, targetContent.getBytes(), StandardOpenOption.CREATE_NEW);
+//                            } catch (IOException e) {
+//                                ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
+//                                warnST.add("path", path.toString());
+//                                warnST.add("odsFieldName", odsFieldName);
+//                                warnST.add("bizFieldLength", bizFieldLength);
+//                                String warn = warnST.render();
+//                                logger.warn(warn, e);
+//                            }
                         });
 
                         //输出对ODS数据库对应字段进行长度扩充

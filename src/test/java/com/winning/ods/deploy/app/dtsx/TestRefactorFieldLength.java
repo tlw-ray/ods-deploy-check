@@ -14,23 +14,47 @@ import java.nio.file.Paths;
  * <outputColumn id="\d+" name="pzh2" description=".*" lineageId="4382" precision=".*" scale=".*" length="32"
  */
 public class TestRefactorFieldLength {
-    @Test
-    public void testReplaceFieldLength() throws IOException {
-        Path sourcePath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx");
-        byte[] sourceBytes = Files.readAllBytes(sourcePath);
-        String sourceContent = new String(sourceBytes);
 
-        Path targetPath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx.target");
-        byte[] targetBytes = Files.readAllBytes(targetPath);
-        String targetContent = new String(targetBytes);
-
+    private void test(Path sourcePath, Path actualPath, Path expectedPath, String fieldName, String dataType, int targetLength) throws IOException {
         RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-        refactorFieldLength.setFieldName("pzh2");
-        refactorFieldLength.setDataType("varchar");
-        refactorFieldLength.setTargetLength(128);
-        refactorFieldLength.setContent(sourceContent);
-        String replacedContent = refactorFieldLength.process();
+        refactorFieldLength.setSourcePath(sourcePath);
+        refactorFieldLength.setTargetPath(actualPath);
+        refactorFieldLength.setFieldName(fieldName);
+        refactorFieldLength.setDataType(dataType);
+        refactorFieldLength.setTargetLength(targetLength);
+        refactorFieldLength.process();
 
-        Assert.assertEquals(targetContent, replacedContent);
+        byte[] actualBytes = Files.readAllBytes(actualPath);
+        String actualString = new String(actualBytes, "UTF-8");
+        byte[] expectBytes = Files.readAllBytes(expectedPath);
+        String expectedString = new String(expectBytes, "UTF-8");
+
+        Assert.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    public void test_ZY_BRSYK() throws IOException {
+        Path sourcePath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx");
+        Path actualPath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx.actual");
+        Path expectedPath = Paths.get("test-data/refactorFieldLength/ZY_BRSYK.dtsx.expected");
+
+        String fieldName = "pzh2";
+        String dataType = "varchar";
+        int targetLength = 128;
+
+        test(sourcePath, actualPath, expectedPath, fieldName, dataType, targetLength);
+    }
+
+    @Test
+    public void test_XK_TESTINFO() throws IOException {
+        Path sourcePath = Paths.get("test-data/refactorFieldLength/XK_TESTINFO.dtsx");
+        Path actualPath = Paths.get("test-data/refactorFieldLength/XK_TESTINFO.dtsx.actual");
+        Path expectedPath = Paths.get("test-data/refactorFieldLength/XK_TESTINFO.dtsx.expected");
+
+        String fieldName = "cella";
+        String dataType = "varchar";
+        int targetLength = 2;
+
+        test(sourcePath, actualPath, expectedPath, fieldName, dataType, targetLength);
     }
 }

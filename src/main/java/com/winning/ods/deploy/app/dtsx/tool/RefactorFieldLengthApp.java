@@ -18,14 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.stringtemplate.v4.ST;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.Set;
-import java.util.logging.LogManager;
 
 /**
  * Created by tlw@winning.com.cn on 2017/6/22.
@@ -71,31 +66,20 @@ public class RefactorFieldLengthApp extends Application{
             Set<Path> pathSet = tableFileMapping.getPathSet(tableName);
             if (pathSet != null && pathSet.size() > 0) {
                 pathSet.forEach(path -> {
-                    try {
-                        ST msgST = new ST("修改'<path>': 更新'<field>'的<type>长度为'<length>'");
-                        msgST.add("path", path.toString());
-                        msgST.add("type", fieldTypeComboBox.getSelectionModel().getSelectedItem());
-                        msgST.add("field", fieldName);
-                        msgST.add("length", targetLength);
-                        String msg = msgST.render();
-                        System.out.println(msg);
-                        byte[] bytes = Files.readAllBytes(path);
-                        String sourceContent = new String(bytes, "UTF-8");
-                        RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-                        refactorFieldLength.setContent(sourceContent);
-                        refactorFieldLength.setFieldName(fieldName);
-                        refactorFieldLength.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
-                        refactorFieldLength.setTargetLength(targetLength);
-                        String targetContent = refactorFieldLength.process();
-                        Files.write(path, targetContent.getBytes("UTF-8"), StandardOpenOption.WRITE);
-                    } catch (IOException e) {
-                        ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
-                        warnST.add("path", path.toString());
-                        warnST.add("odsFieldName", fieldName);
-                        warnST.add("bizFieldLength", targetLength);
-                        String warn = warnST.render();
-                        logger.warn(warn, e);
-                    }
+                ST msgST = new ST("修改'<path>': 更新'<field>'的<type>长度为'<length>'");
+                msgST.add("path", path.toString());
+                msgST.add("type", fieldTypeComboBox.getSelectionModel().getSelectedItem());
+                msgST.add("field", fieldName);
+                msgST.add("length", targetLength);
+                String msg = msgST.render();
+                logger.info(msg);
+                RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
+                refactorFieldLength.setSourcePath(path);
+                refactorFieldLength.setTargetPath(path);
+                refactorFieldLength.setFieldName(fieldName);
+                refactorFieldLength.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
+                refactorFieldLength.setTargetLength(targetLength);
+                refactorFieldLength.process();
                 });
             }else{
                 logger.warn("当前路径下所有目录中没有名为'"+tableNameTextField.getText()+".dtsx'的文件.");
