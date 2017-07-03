@@ -1,0 +1,1 @@
+java -DapplicationName=dtsx×Ö¶Î³¤¶È -cp "lib\*" com.winning.ods.deploy.app.dtsx.tool.FieldLengthRefactorApp

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>readme</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>ODS实施改进</h1>
+<h2>运行环境</h2>
+<ul>
+<li>JRE1.8+</li>
+</ul>
+<h2>功能清单</h2>
+<ul>
+<li>生成ODS配置文件</li>
+<li>分析业务库到ODS库差异报告</li>
+<li>批量修改业务库字段短于ODS库的字段长度及这些字段在DTSX中的长度定义</li>
+</ul>
+<h2>问题处理</h2>
+<p>如果运行下述工具过程中出现问题请:</p>
+<ol>
+<li>
+<p>检查logs路径下对应的*.html日志文件, 根据警告或错误信息来修改程序运行环境</p>
+</li>
+<li>
+<p>如果仍然不能解决问题，请将logs目录打包, 随问题描述和截图发往有关人员</p>
+</li>
+<li>
+<p>日志级别说明:</p>
+<ul>
+<li>DOS窗口输出程序操作结果, 是INFO级别日志</li>
+<li>logs目录下的*.html日志输出程序进行的主要操作记录, 是DEBUG级别日志</li>
+</ul>
+</li>
+</ol>
+<h2>相关SQL指令</h2>
+<ol>
+<li>
+<p>改表字段长度:</p>
+<p>//将表ZY_BRSYK中字段pzh2最大长度设为32</p>
+<p>alter table ZY_BRSYK alter column pzh2 varchar(32);</p>
+</li>
+<li>
+<p>添加TimeTemp字段语句:</p>
+<p>//TODO 这里请帮忙添加一下</p>
+</li>
+</ol>
+<h2>操作指南</h2>
+<ol>
+<li>
+<p>命令行窗口键入命令检查系统已经安装jre环境在1.8版本以上</p>
+<p>java -version</p>
+<blockquote>
+<p>如果该命令执行没有提示任何有关java的版本信息，请根据&quot;我的电脑-属性&quot;查看Windows操作系统类型。如果是64位的请安装<a href="http://103.38.233.24:8080/tools/jre-8u131-windows-x64.exe" title="jre-8u131-windows-x64.exe">64位JRE8</a>, 如果是32位请安装<a href="http://103.38.233.24:8080/tools/jre-8u131-windows-i586.exe" title="jre-8u131-windows-i586.exe">32位JRE8</a>。可直接从<a href="http://java.oracle.com">Oracle官方网站</a>下载最新版JRE。</p>
+</blockquote>
+</li>
+<li>
+<p>配置config/etlDatabase.xml文件，设定数据库的服务器、端口、用户名、密码、实例名、数据库名</p>
+</li>
+<li>
+<p>执行功能</p>
+<ul>
+<li>
+<p><strong>生成配置文件:</strong></p>
+<ul>
+<li>运行<strong>&quot;dtsx生成配置文件.bat&quot;</strong></li>
+<li>生成的ODS配置文件位于当前路径下生成的ConfigFile/ODS目录下</li>
+</ul>
+</li>
+<li>
+<p><strong>字段差异分析:</strong></p>
+<ul>
+<li>运行<strong>&quot;ods字段检查.bat&quot;</strong>分析业务库到ODS库字段差异报告</li>
+<li>报告的结果会生成到数据库</li>
+<li>当前目录下会产生report.csv包含差异分析结果</li>
+</ul>
+</li>
+<li>
+<p><strong>自动修正字段长度问题:</strong></p>
+<ul>
+<li>
+拷贝HOSPITAL_DW目录到当前路径下
+<ul>
+<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
+</ul>
+</li>
+<li>
+运行<strong>&quot;dtsx修正字段长度.bat&quot;</strong>分析业务库到ODS库差异.该程序会执行:
+<ul>
+<li>对比源库与目标库已定义表的字段长度</li>
+<li>当目标库的字段长度小于源库中的表时, 修改表中该字段的长度</li>
+<li>修改当前路径下,该表名.dtsx文件中使用到该字段的长度为源表定义的长度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2>附带界面工具</h2>
+<ul>
+<li>
+<p>SQLServer测通工具:</p>
+<ul>
+<li>第一步: 运行&quot;SQLServer测通工具.bat&quot;, 获得如下界面:</li>
+</ul>
+<p><img src="screenshot/checkConnect.jpg" /></p>
+<ul>
+<li>
+第二步: 至少输入服务器名、用户名、密码，点击&quot;测通&quot;按钮进行JDBC到数据库的连接测试
+<ul>
+<li>如果连接成功，显示蓝色成功信息</li>
+<li>如果连接失败，显示红色错误信息</li>
+<li>如果不能诊断错误原因，请将错误信息或截图发有关人员</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意：SQLServer在使用非默认实例时端口可能不是1433，此时应保持端口输入框是非可用状态。除非您清楚知道正确的端口号码是多少，可以勾选端口输入框后的复选框，并输入正确的端口号。</p>
+</blockquote>
+<ul>
+<li>
+<p>DTSX字段长度批量修改工具：</p>
+<ul>
+<li>
+<p>第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下</p>
+<ul>
+<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
+</ul>
+</li>
+<li>
+<p>第二步: 运行<strong>&quot;dtsx_字段长度.bat&quot;</strong>, 看到如下界面:<br>
+<img src="screenshot/refactorDTSX-ui.jpg" /></p>
+<ul>
+<li>输入表名、字段名、字段类型、目标长度</li>
+<li>点击&quot;批量修改&quot;按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的指定字段长度为目标长度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>DTSX字段替换为NULL AS工具:</p>
+<ul>
+<li>
+<p>第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下</p>
+<ul>
+<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
+</ul>
+</li>
+<li>
+<p>第二步: 运行<strong>&quot;dtsx_字段NullAs.bat&quot;</strong>, 看到如下界面:<br>
+<img src="screenshot/dtsxFieldNullAs.jpg" /></p>
+<ul>
+<li>输入表名、字段名</li>
+<li>点击&quot;批量NullAs&quot;按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的Select语句中该字段的选择语句为'NULL AS [fieldName]',解决当源数据库中缺少字段，导致报错的问题</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>开发环境</h2>
+<ul>
+<li>JDK1.8+</li>
+<li>intellij 2016.2.5</li>
+<li>maven 3.3</li>
+</ul>
+<h2>历史版本</h2>
+<ul>
+<li>v1.3-20170628 增加DTSX的字段NullAs编辑工具</li>
+<li>v1.2-20170627 集成配置文件生成功能，日志采用html形式显示</li>
+<li>v1.1-20170620 实现根据业务库与ODS库字段对比，获得的长度不兼容字段信息，自动修改dtsx文件和ODS库对应字段长度</li>
+<li>v1.0-20170616 实现业务库与ODS库字段对比（缺失、类型不兼容、长度不兼容）功能</li>
+</ul>
+<h2>BUG提供与修正</h2>
+<ul>
+<li>
+<p>20170623<DTSX字段差异修正工具>:</p>
+<ul>
+<li>dtsx修改后导致中文乱码</li>
+<li>日志在默认级别仅保留修改了哪个文件的哪个字段</li>
+<li>数值输入组件需要输入回车才能确定数值，改为输入时确定</li>
+<li>readme.html中增加提示修改文件只读属性为否</li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

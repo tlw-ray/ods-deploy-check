@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head><meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <title>Logback Log Messages</title>
+<style  type="text/css">
+table { margin-left: 2em; margin-right: 2em; border-left: 2px solid #AAA; }
+TR.even { background: #FFFFFF; }
+TR.odd { background: #EAEAEA; }
+TR.warn TD.Level, TR.error TD.Level, TR.fatal TD.Level {font-weight: bold; color: #FF4040 }
+TD { padding-right: 1ex; padding-left: 1ex; border-right: 2px solid #AAA; }
+TD.Time, TD.Date { text-align: right; font-family: courier, monospace; font-size: smaller; }
+TD.Thread { text-align: left; }
+TD.Level { text-align: right; }
+TD.Logger { text-align: left; }
+TR.header { background: #596ED5; color: #FFF; font-weight: bold; font-size: larger; }
+TD.Exception { background: #A2AEE8; font-family: courier, monospace;}
+</style>
+
+  </head>
+<body>
+<hr/>
+<p>Log session start time Mon Jul 03 10:30:38 CST 2017</p><p></p>
+
+<table cellspacing="0">
+<tr class="header">
+<td class="RelativeTime">RelativeTime</td>
+<td class="Level">Level</td>
+<td class="Logger">Logger</td>
+<td class="Message">Message</td>
+</tr>
+
+
+<tr class="debug even">
+<td class="RelativeTime">739</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">jdbc:sqlserver://127.0.0.1;databaseName=CM_DataCenter;user=sa;password=sa</td>
+</tr>
+
+<tr class="debug odd">
+<td class="RelativeTime">744</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">select serveraddress, portnumber, username, pwd, examplename, code from CM_DB_CONFIG where dbname = &#39;ODS&#39;</td>
+</tr>
+
+<tr class="debug even">
+<td class="RelativeTime">3512</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">BizDatabase{bizName=&#39;ODS&#39;} Database{server=&#39;127.0.0.1&#39;, port=1433, userName=&#39;sa&#39;, password=&#39;sa&#39;, instance=&#39;&#39;, name=&#39;HOSPITAL_DW&#39;}</td>
+</tr>
+
+<tr class="debug odd">
+<td class="RelativeTime">3647</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">jdbc:sqlserver://127.0.0.1;databaseName=CM_DataCenter;user=sa;password=sa</td>
+</tr>
+
+<tr class="debug even">
+<td class="RelativeTime">3647</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">select serveraddress, portnumber, username, pwd, examplename, code, dbname from CM_DB_CONFIG where dbname not in (&#39;CDR&#39;,&#39;CM_DataCenter&#39;,&#39;CM_Temporary&#39;,&#39;ODR&#39;,&#39;ODS&#39;)</td>
+</tr>
+
+<tr class="debug odd">
+<td class="RelativeTime">3691</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">BizDatabase{bizName=&#39;HIS&#39;} Database{server=&#39;127.0.0.1&#39;, port=1433, userName=&#39;sa&#39;, password=&#39;sa&#39;, instance=&#39;&#39;, name=&#39;THIS4&#39;}</td>
+</tr>
+
+<tr class="debug even">
+<td class="RelativeTime">3692</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">count: 1</td>
+</tr>
+
+<tr class="debug odd">
+<td class="RelativeTime">3721</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">select code, incremode from CM_DB_TABLE_CONFIG where dbname = &#39;HIS&#39;</td>
+</tr>
+
+<tr class="debug even">
+<td class="RelativeTime">3792</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.EtlRepository</td>
+<td class="Message">count: 196</td>
+</tr>
+
+<tr class="debug odd">
+<td class="RelativeTime">3846</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.Repository</td>
+<td class="Message">select TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, ORDINAL_POSITION from THIS4.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME in (&#39;ZY_BRZDQK&#39;,&#39;GH_KM_GHKMMCK&#39;,&#39;YY_DQDMK&#39;,&#39;WZ_BCJRKZD&#39;,&#39;YY_UNIT&#39;,&#39;YY_WZJBK&#39;,&#39;YK_KSFYMX&#39;,&#39;SF_YS_BRGMJLK&#39;,&#39;VW_ZYSQD&#39;,&#39;YF_YPCZDMK&#39;,&#39;YY_CONFIG&#39;,&#39;YY_YBDWBMK&#39;,&#39;BQ_BRGMJLK&#39;,&#39;YK_YPRKZD&#39;,&#39;SF_SFCKDMK&#39;,&#39;YY_YBXMK&#39;,&#39;VW_MZCFK&#39;,&#39;YY_YYBMK&#39;,&#39;YF_YPPDZD&#39;,&#39;YF_FYCKDMK&#39;,&#39;YK_YPTHMX&#39;,&#39;ZYB_CYFSK&#39;,&#39;YY_SFDXMK&#39;,&#39;YK_YFTKZD&#39;,&#39;ZY_BQDMK&#39;,&#39;BQ_BRRCXXK&#39;,&#39;YY_CARDTYPE&#39;,&#39;YF_YFZKC&#39;,&#39;VW_ZYFYMX&#39;,&#39;TJ_ZYK&#39;,&#39;ZYB_BRYJK&#39;,&#39;YY_GJDMK&#39;,&#39;VW_SF_YS_MZBLZDK&#39;,&#39;YF_YPDCMX&#39;,&#39;WZ_CKZD&#39;,&#39;SF_YS_YZPCK&#39;,&#39;SS_SSMZK&#39;,&#39;WZ_KSBMK&#39;,&#39;VW_MZFYMX&#39;,&#39;ZY_BRSYK&#39;,&#39;BQ_BRCWXXK&#39;,&#39;VW_WZ_KSBMK&#39;,&#39;YY_YLXMK&#39;,&#39;VW_MZJEMXK&#39;,&#39;YF_YFDMK&#39;,&#39;ZYB_RYFSK&#39;,&#39;GH_GHLBK&#39;,&#39;YK_YPCKZD&#39;,&#39;SF_YS_REPORT&#39;,&#39;SS_SSFJK&#39;,&#39;YK_YPGGMLK&#39;,&#39;WZ_GRTZMXK&#39;,&#39;YY_BAKSDYK&#39;,&#39;czryk&#39;,&#39;WZ_KSTZMXK&#39;,&#39;WZ_TKZD&#39;,&#39;VW_GHMXK&#39;,&#39;WZ_BCJRKMX&#39;,&#39;YF_YPPDMX&#39;,&#39;VW_MZCFMXK&#39;,&#39;YK_YKZKC&#39;,&#39;YK_KSFYZD&#39;,&#39;YY_ZTQKK&#39;,&#39;VW_MZBRJSMXK&#39;,&#39;YY_HSKSK&#39;,&#39;ZY_YZPCK&#39;,&#39;WZ_WZPMDMK&#39;,&#39;ZY_BRJSJEK&#39;,&#39;BQ_BRZKQQK&#39;,&#39;YK_YPPDMX&#39;,&#39;SS_SSRYK&#39;,&#39;YY_HSXMK&#39;,&#39;TJ_JBBMK&#39;,&#39;YK_YPTHZD&#39;,&#39;YK_YPTJMX&#39;,&#39;YK_YPCZDMK&#39;,&#39;SF_JCJGK&#39;,&#39;YY_KSBMK&#39;,&#39;YK_YFTKMX&#39;,&#39;VW_SYCFDRMXK&#39;,&#39;GH_GHFBFLK&#39;,&#39;VW_ZYFYZD&#39;,&#39;YF_YPQLZD&#39;,&#39;BQ_BRCYXJ&#39;,&#39;YK_YPCDMLKZK&#39;,&#39;WZ_CZDMK&#39;,&#39;YK_YKDMK&#39;,&#39;WZ_CKMX&#39;,&#39;VW_SYCFDRK&#39;,&#39;YY_YBFLK&#39;,&#39;VW_CQYZK&#39;,&#39;YF_YFTKMX&#39;,&#39;VW_ZYSQDMXK&#39;,&#39;WZ_WZGGDMK&#39;,&#39;SF_BRXXK&#39;,&#39;SS_QKDJK&#39;,&#39;ZY_ZYBRJLK&#39;,&#39;ZY_BRXXK&#39;,&#39;VW_GHZDK&#39;,&#39;TJ_JBLBK&#39;,&#39;TJ_TJRYK&#39;,&#39;YK_YPQLMX&#39;,&#39;YY_YBBBK&#39;,&#39;SS_SSDJK&#39;,&#39;YK_CJDMK&#39;,&#39;WZ_TKMX&#39;,&#39;SF_YJJGK&#39;,&#39;YY_JBCONFIG&#39;,&#39;ZY_BCDMK&#39;,&#39;YF_YPRKZD&#39;,&#39;TJ_CTTJK&#39;,&#39;YY_SFXMLBK&#39;,&#39;YY_ZDDMK&#39;,&#39;WZ_KSTZK&#39;,&#39;YK_YPPDZD&#39;,&#39;YY_JBZDSZK&#39;,&#39;WZ_WZDLK&#39;,&#39;YK_YPCDMLK&#39;,&#39;YK_YPTJZD&#39;,&#39;TJ_TJXMJGK&#39;,&#39;TJ_DLSFDYK&#39;,&#39;VW_SSJZD&#39;,&#39;VW_LSYZK&#39;,&#39;ZY_BABYSYK&#39;,&#39;YY_CRBDMK&#39;,&#39;YF_YPQLMX&#39;,&#39;YF_SYBRK&#39;,&#39;YF_YPTZK&#39;,&#39;ZY_YPYFK&#39;,&#39;YY_ZCBMK&#39;,&#39;TJ_XMK&#39;,&#39;YK_YPJXK&#39;,&#39;YF_SYCFDRK&#39;,&#39;YK_CGRKMX&#39;,&#39;SF_YS_MZZJK&#39;,&#39;YK_YPTZK&#39;,&#39;GH_YY_PBZBMX&#39;,&#39;YF_YFTKZD&#39;,&#39;WZ_WBRKZD&#39;,&#39;VW_MZSQDMXK&#39;,&#39;YY_SFXXMK&#39;,&#39;WZ_WZDDLK&#39;,&#39;TJ_TJGRZLK&#39;,&#39;SF_YPYFK&#39;,&#39;ZY_BRJSMXK&#39;,&#39;VW_YJQQK&#39;,&#39;YK_YPQLZD&#39;,&#39;YF_YPBSZD&#39;,&#39;VW_FYQQK&#39;,&#39;MZ_YS_RYDJK&#39;,&#39;YK_YPFLK&#39;,&#39;GH_YY_PBZB&#39;,&#39;VW_MZHJCFMXK&#39;,&#39;GH_GHKMK&#39;,&#39;VW_MZHJCFK&#39;,&#39;YF_YPRKMX&#39;,&#39;YK_YPRKMX&#39;,&#39;GH_GHYYK&#39;,&#39;TJ_TJJBK&#39;,&#39;YK_YPLYK&#39;,&#39;WZ_WZFLK&#39;,&#39;YY_ZWBMK&#39;,&#39;YK_YPTZMXK&#39;,&#39;YF_PYCKDMK&#39;,&#39;TJ_TJSFXMK&#39;,&#39;YY_ZGBMK&#39;,&#39;YY_SMS_SEND&#39;,&#39;TJ_TJSFMXK&#39;,&#39;VW_MZSQD&#39;,&#39;GH_SH_GHYYK&#39;,&#39;WZ_ZLDMK&#39;,&#39;YF_YPDCZD&#39;,&#39;YK_CGRKZD&#39;,&#39;YK_GHDWDMK&#39;,&#39;VW_MZFYZD&#39;,&#39;YF_SYCFDRMXK&#39;,&#39;ZY_BRJSK&#39;,&#39;GH_YY_PBZBMX_HX&#39;,&#39;TJ_TJTDK&#39;,&#39;WZ_WBRKMX&#39;,&#39;VW_MZBRJSK&#39;,&#39;WZ_GHDWDMK&#39;,&#39;YY_MZDMK&#39;,&#39;YY_KSBQDYK&#39;,&#39;TJ_GRZLXMK&#39;,&#39;TJ_BJCFMBK&#39;,&#39;YK_ZMLBK&#39;,&#39;TJ_LRMBK&#39;,&#39;YK_YPFLDLK&#39;,&#39;SS_SSDJDMK&#39;,&#39;YK_YPCKMX&#39;,&#39;YF_YPTZMXK&#39;,&#39;YF_YPBSMX&#39;,&#39;TJ_TJXMK&#39;,&#39;WZ_GRTZK&#39;,&#39;YZCX_YZRB_ZY&#39;)</td>
+</tr>
+
+<tr class="debug even">
+<td class="RelativeTime">4227</td>
+<td class="Level">DEBUG</td>
+<td class="Logger">com.winning.ods.deploy.dao.Repository</td>
+<td class="Message">select TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, ORDINAL_POSITION from HOSPITAL_DW.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME in (&#39;ZY_BRZDQK&#39;,&#39;GH_KM_GHKMMCK&#39;,&#39;YY_DQDMK&#39;,&#39;WZ_BCJRKZD&#39;,&#39;YY_UNIT&#39;,&#39;YY_WZJBK&#39;,&#39;YK_KSFYMX&#39;,&#39;SF_YS_BRGMJLK&#39;,&#39;VW_ZYSQD&#39;,&#39;YF_YPCZDMK&#39;,&#39;YY_CONFIG&#39;,&#39;YY_YBDWBMK&#39;,&#39;BQ_BRGMJLK&#39;,&#39;YK_YPRKZD&#39;,&#39;SF_SFCKDMK&#39;,&#39;YY_YBXMK&#39;,&#39;VW_MZCFK&#39;,&#39;YY_YYBMK&#39;,&#39;YF_YPPDZD&#39;,&#39;YF_FYCKDMK&#39;,&#39;YK_YPTHMX&#39;,&#39;ZYB_CYFSK&#39;,&#39;YY_SFDXMK&#39;,&#39;YK_YFTKZD&#39;,&#39;ZY_BQDMK&#39;,&#39;BQ_BRRCXXK&#39;,&#39;YY_CARDTYPE&#39;,&#39;YF_YFZKC&#39;,&#39;VW_ZYFYMX&#39;,&#39;TJ_ZYK&#39;,&#39;ZYB_BRYJK&#39;,&#39;YY_GJDMK&#39;,&#39;VW_SF_YS_MZBLZDK&#39;,&#39;YF_YPDCMX&#39;,&#39;WZ_CKZD&#39;,&#39;SF_YS_YZPCK&#39;,&#39;SS_SSMZK&#39;,&#39;WZ_KSBMK&#39;,&#39;VW_MZFYMX&#39;,&#39;ZY_BRSYK&#39;,&#39;BQ_BRCWXXK&#39;,&#39;VW_WZ_KSBMK&#39;,&#39;YY_YLXMK&#39;,&#39;VW_MZJEMXK&#39;,&#39;YF_YFDMK&#39;,&#39;ZYB_RYFSK&#39;,&#39;GH_GHLBK&#39;,&#39;YK_YPCKZD&#39;,&#39;SF_YS_REPORT&#39;,&#39;SS_SSFJK&#39;,&#39;YK_YPGGMLK&#39;,&#39;WZ_GRTZMXK&#39;,&#39;YY_BAKSDYK&#39;,&#39;czryk&#39;,&#39;WZ_KSTZMXK&#39;,&#39;WZ_TKZD&#39;,&#39;VW_GHMXK&#39;,&#39;WZ_BCJRKMX&#39;,&#39;YF_YPPDMX&#39;,&#39;VW_MZCFMXK&#39;,&#39;YK_YKZKC&#39;,&#39;YK_KSFYZD&#39;,&#39;YY_ZTQKK&#39;,&#39;VW_MZBRJSMXK&#39;,&#39;YY_HSKSK&#39;,&#39;ZY_YZPCK&#39;,&#39;WZ_WZPMDMK&#39;,&#39;ZY_BRJSJEK&#39;,&#39;BQ_BRZKQQK&#39;,&#39;YK_YPPDMX&#39;,&#39;SS_SSRYK&#39;,&#39;YY_HSXMK&#39;,&#39;TJ_JBBMK&#39;,&#39;YK_YPTHZD&#39;,&#39;YK_YPTJMX&#39;,&#39;YK_YPCZDMK&#39;,&#39;SF_JCJGK&#39;,&#39;YY_KSBMK&#39;,&#39;YK_YFTKMX&#39;,&#39;VW_SYCFDRMXK&#39;,&#39;GH_GHFBFLK&#39;,&#39;VW_ZYFYZD&#39;,&#39;YF_YPQLZD&#39;,&#39;BQ_BRCYXJ&#39;,&#39;YK_YPCDMLKZK&#39;,&#39;WZ_CZDMK&#39;,&#39;YK_YKDMK&#39;,&#39;WZ_CKMX&#39;,&#39;VW_SYCFDRK&#39;,&#39;YY_YBFLK&#39;,&#39;VW_CQYZK&#39;,&#39;YF_YFTKMX&#39;,&#39;VW_ZYSQDMXK&#39;,&#39;WZ_WZGGDMK&#39;,&#39;SF_BRXXK&#39;,&#39;SS_QKDJK&#39;,&#39;ZY_ZYBRJLK&#39;,&#39;ZY_BRXXK&#39;,&#39;VW_GHZDK&#39;,&#39;TJ_JBLBK&#39;,&#39;TJ_TJRYK&#39;,&#39;YK_YPQLMX&#39;,&#39;YY_YBBBK&#39;,&#39;SS_SSDJK&#39;,&#39;YK_CJDMK&#39;,&#39;WZ_TKMX&#39;,&#39;SF_YJJGK&#39;,&#39;YY_JBCONFIG&#39;,&#39;ZY_BCDMK&#39;,&#39;YF_YPRKZD&#39;,&#39;TJ_CTTJK&#39;,&#39;YY_SFXMLBK&#39;,&#39;YY_ZDDMK&#39;,&#39;WZ_KSTZK&#39;,&#39;YK_YPPDZD&#39;,&#39;YY_JBZDSZK&#39;,&#39;WZ_WZDLK&#39;,&#39;YK_YPCDMLK&#39;,&#39;YK_YPTJZD&#39;,&#39;TJ_TJXMJGK&#39;,&#39;TJ_DLSFDYK&#39;,&#39;VW_SSJZD&#39;,&#39;VW_LSYZK&#39;,&#39;ZY_BABYSYK&#39;,&#39;YY_CRBDMK&#39;,&#39;YF_YPQLMX&#39;,&#39;YF_SYBRK&#39;,&#39;YF_YPTZK&#39;,&#39;ZY_YPYFK&#39;,&#39;YY_ZCBMK&#39;,&#39;TJ_XMK&#39;,&#39;YK_YPJXK&#39;,&#39;YF_SYCFDRK&#39;,&#39;YK_CGRKMX&#39;,&#39;SF_YS_MZZJK&#39;,&#39;YK_YPTZK&#39;,&#39;GH_YY_PBZBMX&#39;,&#39;YF_YFTKZD&#39;,&#39;WZ_WBRKZD&#39;,&#39;VW_MZSQDMXK&#39;,&#39;YY_SFXXMK&#39;,&#39;WZ_WZDDLK&#39;,&#39;TJ_TJGRZLK&#39;,&#39;SF_YPYFK&#39;,&#39;ZY_BRJSMXK&#39;,&#39;VW_YJQQK&#39;,&#39;YK_YPQLZD&#39;,&#39;YF_YPBSZD&#39;,&#39;VW_FYQQK&#39;,&#39;MZ_YS_RYDJK&#39;,&#39;YK_YPFLK&#39;,&#39;GH_YY_PBZB&#39;,&#39;VW_MZHJCFMXK&#39;,&#39;GH_GHKMK&#39;,&#39;VW_MZHJCFK&#39;,&#39;YF_YPRKMX&#39;,&#39;YK_YPRKMX&#39;,&#39;GH_GHYYK&#39;,&#39;TJ_TJJBK&#39;,&#39;YK_YPLYK&#39;,&#39;WZ_WZFLK&#39;,&#39;YY_ZWBMK&#39;,&#39;YK_YPTZMXK&#39;,&#39;YF_PYCKDMK&#39;,&#39;TJ_TJSFXMK&#39;,&#39;YY_ZGBMK&#39;,&#39;YY_SMS_SEND&#39;,&#39;TJ_TJSFMXK&#39;,&#39;VW_MZSQD&#39;,&#39;GH_SH_GHYYK&#39;,&#39;WZ_ZLDMK&#39;,&#39;YF_YPDCZD&#39;,&#39;YK_CGRKZD&#39;,&#39;YK_GHDWDMK&#39;,&#39;VW_MZFYZD&#39;,&#39;YF_SYCFDRMXK&#39;,&#39;ZY_BRJSK&#39;,&#39;GH_YY_PBZBMX_HX&#39;,&#39;TJ_TJTDK&#39;,&#39;WZ_WBRKMX&#39;,&#39;VW_MZBRJSK&#39;,&#39;WZ_GHDWDMK&#39;,&#39;YY_MZDMK&#39;,&#39;YY_KSBQDYK&#39;,&#39;TJ_GRZLXMK&#39;,&#39;TJ_BJCFMBK&#39;,&#39;YK_ZMLBK&#39;,&#39;TJ_LRMBK&#39;,&#39;YK_YPFLDLK&#39;,&#39;SS_SSDJDMK&#39;,&#39;YK_YPCKMX&#39;,&#39;YF_YPTZMXK&#39;,&#39;YF_YPBSMX&#39;,&#39;TJ_TJXMK&#39;,&#39;WZ_GRTZK&#39;,&#39;YZCX_YZRB_ZY&#39;)</td>
+</tr>
+
+<tr class="info odd">
+<td class="RelativeTime">4630</td>
+<td class="Level">INFO</td>
+<td class="Logger">com.winning.ods.deploy.app.dtsx.service.FieldLengthRefactorService</td>
+<td class="Message">对业务系统&#39;HIS&#39;: 转换ODS表&#39;ZY_BRSYK&#39;的&#39;varchar&#39;类型字段&#39;pzh2&#39;的长度由&#39;16&#39;到&#39;32&#39;...</td>
+</tr>
+
+<tr class="warn even">
+<td class="RelativeTime">4666</td>
+<td class="Level">WARN</td>
+<td class="Logger">com.winning.ods.deploy.app.dtsx.service.FieldLengthRefactorService</td>
+<td class="Message">当前路径下没有找到任何名为ZY_BRSYK.dtsx的文件，未对ZY_BRSYK表的字段pzh2长度做更改.</td>
+</tr>

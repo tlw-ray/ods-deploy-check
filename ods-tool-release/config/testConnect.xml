@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<database>
+    <instance></instance>
+    <password>sa</password>
+    <server>172.16.0.170</server>
+    <userName>sa</userName>
+</database>

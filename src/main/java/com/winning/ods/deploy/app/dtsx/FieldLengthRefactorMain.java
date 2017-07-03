@@ -1,7 +1,7 @@
 package com.winning.ods.deploy.app.dtsx;
 
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
-import com.winning.ods.deploy.app.dtsx.service.RefactorFieldLengthService;
+import com.winning.ods.deploy.app.dtsx.service.FieldLengthRefactorService;
 import com.winning.ods.deploy.dao.EtlRepository;
 import com.winning.ods.deploy.dao.Repository;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class RefactorFieldLengthMain {
         if(bizRepositories != null && bizRepositories.size() > 0) {
             bizRepositories.forEach(bizRepository -> {
                 try {
-                    RefactorFieldLengthService service = new RefactorFieldLengthService();
+                    FieldLengthRefactorService service = new FieldLengthRefactorService();
                     service.setTableFileMapping(tableFileMapping);
                     service.setEtlRepository(etlRepository);
                     service.setOdsRepository(odsRepository);

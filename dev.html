@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>dev</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+</head>
+<body>
+<h1>开发文档</h1>
+<p>撰写: tlw@winning.com.cn</p>
+<p>时间: 20170703</p>
+<p>密级: 内部</p>
+<p>代码仓库: https://github.com/tlw-ray/ods-deploy-check</p>
+<h2>功能1. 生成配置文件业务逻辑</h2>
+<ul>
+<li>
+生成规则:
+<ul>
+<li>模板文件位置: &quot;template/ODSConfig_.dtsConfig.ftlh&quot;</li>
+<li>目标文件名为: &quot;ConfigFile/ODS/ODSConfig_${业务系统名}.dtsConfig&quot;</li>
+<li>医疗机构代码从数据库获取</li>
+<li>连接分为ADO和OLEDB两类</li>
+<li>
+每类有四个连接:
+<ul>
+<li>目标库： ODS库</li>
+<li>日志库： ETL管理实例的CM_DataCenter库</li>
+<li>源库： 业务系统库</li>
+<li>临时库: ETL管理实例的CM_Temporary库</li>
+</ul>
+</li>
+<li>生成前会先清空ConfigFile/ODS</li>
+<li>有配置多少业务库就生成几个配置文件</li>
+<li>能够生成医疗机构代码</li>
+</ul>
+</li>
+</ul>
+<h2>功能2. 字段冲突检查</h2>
+<p>将某数据库导入，结构被定义的库时需要检查字段是否兼容：</p>
+<ol>
+<li>
+<p>字段未定义错误: 该数据库使用了未定义的字段。</p>
+</li>
+<li>
+<p>字段类型冲突错误: 该数据库使用了与定义类型冲突的字段。</p>
+</li>
+<li>
+<p>字段长度不兼容错误： 该数据库使用了类型兼容，但长度无法导入的字段。</p>
+</li>
+<li>
+<p>字段缺失警告：已定义的字段在该数据库中不存在。</p>
+</li>
+</ol>
+<h2>功能3. DTSX调包</h2>
+<ol>
+<li>
+<p>长度重构</p>
+<ol>
+<li>
+<p>批量修改DTSX文件中<outputColumn>和<externalMetadataColumn>标签中对字段长度的定义</p>
+</li>
+<li>
+<p>如果有对DTSX文件中内容进行成功修改，则修改ODS表中字段长度</p>
+</li>
+</ol>
+</li>
+<li>
+<p>NullAs重构</p>
+<ol>
+<li>
+<p>批量修改DTSX文件中componentClassID为{BCEFE59B-6819-47F7-A125-63753B33ABB7}的<component>标签中，SQL语句使用到的未定义字段改为NULL AS fieldName模式</p>
+</li>
+<li>
+<p>批量修改DTSX文件中&lt;DTS:Property DTS:Name=&quot;Expression&quot;&gt;的标签中，SQL语句使用到的未定义字段改为NULL AS fieldName模式</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2>检查与调包主流程</h2>
+<p>下图提供主要的流程，目前已有程序都是该流程的一部分
+<img src="diagram\ODS字段检测.png" /></p>
+<h2>代码目录说明</h2>
+<ul>
+<li>
+<p>com.winning.ods.deploy ODS部署改进程序</p>
+<ul>
+<li>
+dao 数据访问模块
+<ul>
+<li>Repository    通用访问功能（取INFORMATION_SCHEMA数据)</li>
+<li>EtlRepository ETL管理库访问功能，获取要抽取的数据库、表、时间戳字段、医疗机构代码等</li>
+</ul>
+</li>
+<li>
+domain 领域模型
+<ul>
+<li>BizDatabase   业务库: 包含业务系统名和实体数据库两部分</li>
+<li>Database      数据库: 对应实际的数据库，包含服务器、用户名、密码、实例名等属性</li>
+<li>Field         字段: 对应数据库中的Column概念，包含字段名、类型、最大宽度等属性</li>
+<li>FieldCheckResult 字段检查结果: 对源库目标库字段进行检查后的结果</li>
+<li>OrganizationCode 医疗机构代码:</li>
+<li>Table         表: 对应实际的表，包含表名、描述等信息</li>
+</ul>
+</li>
+<li>
+util 工具类
+<ul>
+<li>DBTablePrinter 表输出工具: 将JDBC的ResultSet以方便阅读的方式输出</li>
+<li>SqlServer      SQLServer工具: 测通等</li>
+<li>SqlUtil        SQL语句工具: 从集合类生成where in的条件等。</li>
+</ul>
+</li>
+<li>
+app 应用程序
+<ul>
+<li>
+check 检查程序
+<ul>
+<li>
+core 核心功能
+<ul>
+<li>FieldChecker  检查字段的差异</li>
+<li>TimeTempFieldCheck TimeTemp字段缺失检查</li>
+</ul>
+</li>
+<li>
+service 服务功能
+<ul>
+<li>ChecksService 对若干种检查的包装类</li>
+<li>FieldLengthCheckService 字段长度检查服务，能够连接具体的库并根据检查结果输出日志</li>
+<li>TimeTempFieldCheckService TimeTemp字段缺失检查服务，能够连接到具体的库并根据检查结果输出日志</li>
+</ul>
+</li>
+<li>ConnectCheckApp 连接检查App： 带有界面，能够让用户输入连接信息并检测连接成功状态</li>
+<li>FieldCheckMain 字段检查Main函数: 检查ETL管理库中配置的业务库字段缺失、类型冲突、长度冲突并生成报告</li>
+</ul>
+</li>
+<li>
+dtsx  DTSX调包工具
+<ul>
+<li>
+core 核心功能
+<ul>
+<li>FileRefactor 文件重构: 从一个文件进行某些操作，删除该文件，将新的文件写入</li>
+<li>FieldLengthRefactor 字段长度重构: 将DTSX文件内容中指定字段的长度改为目标长度</li>
+<li>FieldNullAsRefactor 字段NullAs: 将DTSX文件内容中制定字段的Select语句改为 Null as fieldName的形式</li>
+<li>FieldLengthAlter 改表SQL语句生成: 生成该字段长度的SQL语句，并执行</li>
+<li>TableFileMapping 表名导文件映射: 扫描当前路径，建立单个表名到多个文件名的映射规则</li>
+</ul>
+</li>
+<li>
+service 服务
+<ul>
+<li>FieldLengthRefactorService 字段长度重构服务: 根据实际的库进行字段长度重构，并输出日志</li>
+</ul>
+</li>
+<li>
+tool 工具
+<ul>
+<li>FieldLengthRefactorApp 字段长度重构工具: 界面输入要重构的表名、字段名、类型、目标长度，点击重构按钮执行重构</li>
+<li>FieldNullAsRefactorApp 字段NullAs重构工具: 界面输入要重构的表名和字段名，将DTSX文件中有关SELECT语句中该字段改为NULL AS fieldName模式</li>
+</ul>
+</li>
+<li>GenerateConfigMain    配置文件生成: 根据ETL管理库中业务库的配置以及配置文件模板批量生成配置文件</li>
+<li>RefactorFieldLengthMain 字段长度重构: 遍历ETL管理库中定义的所有业务库，检查字段长度冲突，并自动修正DTSX和目标库</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>com.winning.javafx.*  界面工具中整数选择器需要按回车来使输入的数据生效，改为输入完毕后立即生效</p>
+</li>
+<li>com.winning.logback.* 日志采用HTML格式时乱码问题的修正</li>
+</ul>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->

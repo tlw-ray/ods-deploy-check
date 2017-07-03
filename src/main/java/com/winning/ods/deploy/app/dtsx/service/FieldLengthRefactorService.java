@@ -74,26 +74,13 @@ public class RefactorFieldLengthService {
                     if(pathSet != null && pathSet.size() > 0){
                         pathSet.forEach(path -> {
                             //进行DTSX文件中字段长度的替换处理
-//                            try {
-//                                byte[] bytes = Files.readAllBytes(path);
-//                                String sourceContent = new String(bytes);
-                                RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-//                                refactorFieldLength.setContent(sourceContent);
-                                refactorFieldLength.setSourcePath(path);
-                                refactorFieldLength.setFieldName(odsFieldName);
-                                refactorFieldLength.setDataType(dataType);
-                                refactorFieldLength.setTargetLength(bizFieldLength);
-                                refactorFieldLength.process();
-//                                Files.delete(path); //避免重新写入的文件短于原有文件，先删除再写入
-//                                Files.write(path, targetContent.getBytes(), StandardOpenOption.CREATE_NEW);
-//                            } catch (IOException e) {
-//                                ST warnST = new ST("将文件'<path>'中的字段'<odsFieldName>'长度替换为'<bizFieldLength>'时发生异常。");
-//                                warnST.add("path", path.toString());
-//                                warnST.add("odsFieldName", odsFieldName);
-//                                warnST.add("bizFieldLength", bizFieldLength);
-//                                String warn = warnST.render();
-//                                logger.warn(warn, e);
-//                            }
+                            RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
+                            refactorFieldLength.setSourcePath(path);
+                            refactorFieldLength.setTargetPath(path);
+                            refactorFieldLength.setFieldName(odsFieldName);
+                            refactorFieldLength.setDataType(dataType);
+                            refactorFieldLength.setTargetLength(bizFieldLength);
+                            refactorFieldLength.process();
                         });
 
                         //输出对ODS数据库对应字段进行长度扩充
@@ -117,7 +104,7 @@ public class RefactorFieldLengthService {
                         }
                     }else{
                         //警告:当前路径下没有找到文件
-                        ST warnST = new ST("当前路径下没有找到任何名为<odsTableName>.dtsx的文件，无法对<odsTableName>表的字段<odsFieldName>长度做更改.");
+                        ST warnST = new ST("当前路径下没有找到任何名为<odsTableName>.dtsx的文件，未对<odsTableName>表的字段<odsFieldName>长度做更改.");
                         warnST.add("odsTableName", odsTableName.toUpperCase());//根据约定表名全部转大写
                         warnST.add("odsFieldName", odsFieldName);
                         logger.warn(warnST.render());
