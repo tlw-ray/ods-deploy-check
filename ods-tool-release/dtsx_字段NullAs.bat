@@ -1,2 +1,1 @@
 java -DapplicationName=dtsx×Ö¶ÎNullAs -cp "lib\*" com.winning.ods.deploy.app.dtsx.tool.FieldNullAsRefactorApp
-pause

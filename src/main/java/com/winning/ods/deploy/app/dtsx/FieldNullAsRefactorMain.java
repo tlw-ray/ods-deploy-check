@@ -1,0 +1,50 @@
+package com.winning.ods.deploy.app.dtsx;
+
+import com.winning.ods.deploy.app.dtsx.core.FieldNullAsRefactor;
+import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
+import com.winning.ods.deploy.app.dtsx.service.FieldLengthRefactorService;
+import com.winning.ods.deploy.app.dtsx.service.FieldNullAsRefactorService;
+import com.winning.ods.deploy.dao.EtlRepository;
+import com.winning.ods.deploy.dao.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+/**
+ * Created by tlw@winning.com.cn on 2017/7/3.
+ */
+public class FieldAsNullRefactorMain {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+        EtlRepository etlRepository = new EtlRepository();
+        Repository odsRepository = etlRepository.fetchOdsRepository();
+        List<Repository> bizRepositories = etlRepository.fetchBizRepository();
+
+        TableFileMapping tableFileMapping = new TableFileMapping();
+        tableFileMapping.init();
+
+        //遍历业务系统
+        if(bizRepositories != null && bizRepositories.size() > 0) {
+            bizRepositories.forEach(bizRepository -> {
+                try {
+                    FieldNullAsRefactorService service = new FieldNullAsRefactorService();
+                    service.setTableFileMapping(tableFileMapping);
+                    service.setEtlRepository(etlRepository);
+                    service.setOdsRepository(odsRepository);
+                    service.setBizRepository(bizRepository);
+                    service.process();
+                } catch (SQLException e) {
+                    //日志处理
+                    e.printStackTrace();
+                }
+            });
+        }else{
+            Logger logger = LoggerFactory.getLogger(FieldLengthRefactorMain.class);
+            logger.warn("没有能够从管理库获得任何业务系统数据库配置.");
+        }
+    }
+}

@@ -328,7 +328,10 @@ img {
 </li>
 <li>
 <p>添加TimeTemp字段语句:</p>
-<p>//TODO 这里请帮忙添加一下</p>
+<p>//为表CPOE_CQYZK加入TIMETEMP字段:</p>
+<p>if not exists(select 1 from syscolumns where name='TIMETEMP' and id=OBJECT_ID('CPOE_CQYZK'))
+ alter table CPOE_CQYZK add TIMETEMP rowversion
+GO</p>
 </li>
 </ol>
 <h2>操作指南</h2>
@@ -362,20 +365,26 @@ img {
 </ul>
 </li>
 <li>
-<p><strong>自动修正字段长度问题:</strong></p>
+<p><strong>批量修正字段长度问题:</strong></p>
 <ul>
 <li>
-拷贝HOSPITAL_DW目录到当前路径下
-<ul>
-<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
-</ul>
-</li>
-<li>
-运行<strong>&quot;dtsx修正字段长度.bat&quot;</strong>分析业务库到ODS库差异.该程序会执行:
+运行<strong>&quot;dtsx修正字段长度.bat&quot;</strong>该程序会执行:
 <ul>
 <li>对比源库与目标库已定义表的字段长度</li>
 <li>当目标库的字段长度小于源库中的表时, 修改表中该字段的长度</li>
 <li>修改当前路径下,该表名.dtsx文件中使用到该字段的长度为源表定义的长度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>批量修正业务系统缺字段，字段NullAs问题:</strong></p>
+<ul>
+<li>
+运行<strong>&quot;dtsx修正字段NullAs.bat&quot;</strong>该程序会执行:
+<ul>
+<li>对比源库与目标库已定义表的字段缺失</li>
+<li>当源库缺少目标库定义的字段时，源库的DTSX中&quot;select fieldName&quot;语句改为&quot;select null as fieldName ...&quot;模式</li>
 </ul>
 </li>
 </ul>
@@ -411,14 +420,8 @@ img {
 <p>DTSX字段长度批量修改工具：</p>
 <ul>
 <li>
-<p>第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下</p>
-<ul>
-<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
-</ul>
-</li>
-<li>
-<p>第二步: 运行<strong>&quot;dtsx_字段长度.bat&quot;</strong>, 看到如下界面:<br>
-<img src="screenshot/refactorDTSX-ui.jpg" /></p>
+运行<strong>&quot;dtsx_字段长度.bat&quot;</strong>, 看到如下界面:<br>
+<img src="screenshot/refactorDTSX-ui.jpg" />
 <ul>
 <li>输入表名、字段名、字段类型、目标长度</li>
 <li>点击&quot;批量修改&quot;按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的指定字段长度为目标长度</li>
@@ -430,14 +433,8 @@ img {
 <p>DTSX字段替换为NULL AS工具:</p>
 <ul>
 <li>
-<p>第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下</p>
-<ul>
-<li>注意: 这些文件不要有<strong>只读</strong>属性</li>
-</ul>
-</li>
-<li>
-<p>第二步: 运行<strong>&quot;dtsx_字段NullAs.bat&quot;</strong>, 看到如下界面:<br>
-<img src="screenshot/dtsxFieldNullAs.jpg" /></p>
+运行<strong>&quot;dtsx_字段NullAs.bat&quot;</strong>, 看到如下界面:<br>
+<img src="screenshot/dtsxFieldNullAs.jpg" />
 <ul>
 <li>输入表名、字段名</li>
 <li>点击&quot;批量NullAs&quot;按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的Select语句中该字段的选择语句为'NULL AS [fieldName]',解决当源数据库中缺少字段，导致报错的问题</li>

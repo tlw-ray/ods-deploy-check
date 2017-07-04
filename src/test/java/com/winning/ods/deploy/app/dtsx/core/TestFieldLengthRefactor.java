@@ -1,6 +1,6 @@
 package com.winning.ods.deploy.app.dtsx;
 
-import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
+import com.winning.ods.deploy.app.dtsx.core.FieldLengthRefactor;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,16 +13,16 @@ import java.nio.file.Paths;
  * Created by tlw@winning.com.cn on 2017/6/19.
  * <outputColumn id="\d+" name="pzh2" description=".*" lineageId="4382" precision=".*" scale=".*" length="32"
  */
-public class TestRefactorFieldLength {
+public class TestFieldLengthRefactor {
 
     private void test(Path sourcePath, Path actualPath, Path expectedPath, String fieldName, String dataType, int targetLength) throws IOException {
-        RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-        refactorFieldLength.setSourcePath(sourcePath);
-        refactorFieldLength.setTargetPath(actualPath);
-        refactorFieldLength.setFieldName(fieldName);
-        refactorFieldLength.setDataType(dataType);
-        refactorFieldLength.setTargetLength(targetLength);
-        refactorFieldLength.process();
+        FieldLengthRefactor fieldLengthRefactor = new FieldLengthRefactor();
+        fieldLengthRefactor.setSourcePath(sourcePath);
+        fieldLengthRefactor.setTargetPath(actualPath);
+        fieldLengthRefactor.setFieldName(fieldName);
+        fieldLengthRefactor.setDataType(dataType);
+        fieldLengthRefactor.setTargetLength(targetLength);
+        fieldLengthRefactor.process();
 
         byte[] actualBytes = Files.readAllBytes(actualPath);
         String actualString = new String(actualBytes, "UTF-8");
