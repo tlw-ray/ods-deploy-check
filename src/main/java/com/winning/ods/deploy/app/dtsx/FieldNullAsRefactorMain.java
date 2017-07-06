@@ -1,8 +1,6 @@
 package com.winning.ods.deploy.app.dtsx;
 
-import com.winning.ods.deploy.app.dtsx.core.FieldNullAsRefactor;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
-import com.winning.ods.deploy.app.dtsx.service.FieldLengthRefactorService;
 import com.winning.ods.deploy.app.dtsx.service.FieldNullAsRefactorService;
 import com.winning.ods.deploy.dao.EtlRepository;
 import com.winning.ods.deploy.dao.Repository;
@@ -16,7 +14,7 @@ import java.util.List;
 /**
  * Created by tlw@winning.com.cn on 2017/7/3.
  */
-public class FieldAsNullRefactorMain {
+public class FieldNullAsRefactorMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 

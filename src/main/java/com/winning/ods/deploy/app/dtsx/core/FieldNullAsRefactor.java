@@ -11,17 +11,19 @@ import java.util.regex.Pattern;
 /**
  * Created by tlw@winning.com.cn on 2017/6/22.
  */
-public class RefactorNullAsField{
+public class FieldNullAsRefactor extends FileRefactor{
 
-    static String asNullFieldPatternTemplate = "NULL[ \t]+(as[ \t]+)?\\[?<fieldName>\\]?";
-    static String fieldAsFieldPatternTemplate = "\\[?<fieldName>\\]?[ \t]+(as[ \t]+)?\\[?<fieldName>\\]?";
+    static String asNullFieldPatternTemplate  = "[\\s,]NULL\\s+(as\\s+)?((\\Q<fieldName>\\E)|(\\Q[<fieldName>]\\E))[\\s,]";
+//    static String asNullFieldPatternTemplate = "NULL[ \t]+(as[ \t]+)?\\[?<fieldName>\\]?";
+//    static String fieldAsFieldPatternTemplate = "[, \t\n]+\\[?<fieldName>\\]?[, \t\n]+(as[ \t]+)?\\W?<fieldName>\\W+";
+    static String fieldAsFieldPatternTemplate = "[\\s,]((\\Q<fieldName>\\E)|(\\Q[<fieldName>]\\E))\\s+(as\\s+)?((\\Q<fieldName>\\E)|(\\Q[<fieldName>]\\E))[\\s,]";
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     protected String tableName;
     protected Set<String> fieldNameSet;
 
-    public String refactor(String content) {
+    public String doReplace(String content) {
         String refactoredContent = content;
 
         logger.debug("修改表'{}'的字段'{}'为'NULL as ...'", tableName, Arrays.toString(fieldNameSet.toArray()));
@@ -59,28 +61,23 @@ public class RefactorNullAsField{
         String selectPatternTemplate = "select[\\w\\W]+?from[\\w\\W]+?\\[{tableName}\\]";// 在Select与from之间
 
         ST selectST = new ST(selectPatternTemplate, '{', '}');
-        selectST.add("tableName", Pattern.quote(tableName));
+        selectST.add("tableName", tableName);
         String selectPatternString = selectST.render();
         Pattern pattern = Pattern.compile(selectPatternString, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(componentContent);
 
-        Map<String, String> sqlReplaceTask = new HashMap();
+        String replacedContent = componentContent;
         if(matcher.find()){
             logger.debug("找到表{}", selectPatternTemplate);
             String selectContent = matcher.group();
             String replaceContent = replaceField(selectContent);
             if(replaceContent != null){
-                sqlReplaceTask.put(selectContent, replaceContent);
+                replacedContent = replacedContent.replace(selectContent, replaceContent);
             }else{
                 logger.warn("未能替换SQL: " + selectContent);
             }
         }else{
             logger.debug("没有找到预期模式的SQL语句: " + selectPatternString);
-        }
-
-        String replacedContent = componentContent;
-        for(Map.Entry<String, String> entry : sqlReplaceTask.entrySet()){
-            replacedContent = replacedContent.replace(entry.getKey(), entry.getValue());
         }
 
         return replacedContent;
@@ -90,10 +87,10 @@ public class RefactorNullAsField{
         String replaceContent = selectContent;
 
         for(String fieldName : fieldNameSet){
-            String fieldNameRegex = Pattern.quote(fieldName);
             ST asNullFieldPatternST = new ST(asNullFieldPatternTemplate);
-            asNullFieldPatternST.add("fieldName", fieldNameRegex);
+            asNullFieldPatternST.add("fieldName", fieldName);
             String asNullFieldPatternString = asNullFieldPatternST.render();
+            logger.debug("regex: {}", asNullFieldPatternString);
             Pattern asNullFieldPattern = Pattern.compile(asNullFieldPatternString, Pattern.CASE_INSENSITIVE);
             Matcher asNullFieldMatcher = asNullFieldPattern.matcher(selectContent);
 
@@ -103,8 +100,9 @@ public class RefactorNullAsField{
             }else{
                 //判定是否有"[FIELDNAME] [fieldName]"模式存在
                 ST fieldAsFieldST = new ST(fieldAsFieldPatternTemplate);
-                fieldAsFieldST.add("fieldName", fieldNameRegex);
+                fieldAsFieldST.add("fieldName", fieldName);
                 String fieldAsFieldPatternString = fieldAsFieldST.render();
+                logger.debug("regex: {}", fieldAsFieldPatternString);
                 Pattern fieldAsFieldPattern = Pattern.compile(fieldAsFieldPatternString, Pattern.CASE_INSENSITIVE);
                 Matcher fieldAsFieldMatcher = fieldAsFieldPattern.matcher(replaceContent);
                 boolean notFound = true;
@@ -112,8 +110,8 @@ public class RefactorNullAsField{
                     notFound = false;
                     //替换"[FIELDNAME] [fieldName]"为"[NULL] [fieldName]"模式
                     String replaceFrom = fieldAsFieldMatcher.group();
-                    String bracketFieldNameRegex = "\\[?" + fieldNameRegex + "\\]?";
-                    Pattern fieldPattern = Pattern.compile(bracketFieldNameRegex, Pattern.CASE_INSENSITIVE);
+                    String fieldNameRegex = "\\[?" + fieldName + "\\]?";
+                    Pattern fieldPattern = Pattern.compile(fieldNameRegex, Pattern.CASE_INSENSITIVE);
                     Matcher fieldMatcher = fieldPattern.matcher(replaceFrom);
                     String replaceTo = fieldMatcher.replaceFirst("NULL");
                     replaceContent = replaceContent.replace(replaceFrom, replaceTo);
@@ -121,9 +119,14 @@ public class RefactorNullAsField{
 
                 if(notFound) {
                     //在没有"[FIELDNAME] [fieldName]"模式存在的情况下判定是否有"[fieldName]"模式存在
-                    Pattern fieldPattern = Pattern.compile("\\[?" + fieldNameRegex + "\\]?", Pattern.CASE_INSENSITIVE);
+                    String fieldNameRegex = "\\W((\\Q" + fieldName + "\\E)|(\\Q[" + fieldName + "]\\E))\\W";
+                    Pattern fieldPattern = Pattern.compile(fieldNameRegex, Pattern.CASE_INSENSITIVE);
                     Matcher fieldMatcher = fieldPattern.matcher(selectContent);
-                    replaceContent = fieldMatcher.replaceAll("NULL AS [" + fieldName + "]");
+                    if(fieldMatcher.find()){
+                        int start = fieldMatcher.start();
+                        int end = fieldMatcher.end();
+                        replaceContent = selectContent.substring(0, start + 1) + "NULL AS [" + fieldName + "]" + selectContent.substring(end - 1);
+                    }
                 }
             }
         }

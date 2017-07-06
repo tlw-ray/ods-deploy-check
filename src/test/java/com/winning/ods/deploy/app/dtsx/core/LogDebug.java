@@ -1,4 +1,4 @@
-package com.winning.ods.deploy.app;
+package com.winning.ods.deploy.app.dtsx.core;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

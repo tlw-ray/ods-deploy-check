@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * Created by tlw@winning.com.cn on 2017/7/4.
  */
-public class Regex1 {
+public class UseMatcherReplace {
     public static void main(String[] args){
         String tmp = "aaaaa11bb11bbb";
         Pattern pattern = Pattern.compile("11");

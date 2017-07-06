@@ -1,6 +1,6 @@
 package com.winning.ods.deploy.app.dtsx.tool;
 
-import com.winning.ods.deploy.app.dtsx.core.RefactorNullAsField;
+import com.winning.ods.deploy.app.dtsx.core.FieldNullAsRefactor;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -15,19 +15,17 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by tlw@winning.com.cn on 2017/6/23.
  */
-public class RefactorInputFieldAsNullApp extends Application{
+public class FieldNullAsRefactorApp extends Application{
 
     public static void main(String[] args) throws IOException {
-        RefactorFieldLengthApp.launch(args);
+        FieldLengthRefactorApp.launch(args);
     }
 
     Logger logger = LoggerFactory.getLogger(getClass());
@@ -51,23 +49,15 @@ public class RefactorInputFieldAsNullApp extends Application{
             Set<Path> pathSet = tableFileMapping.getPathSet(tableName);
             if (pathSet != null && pathSet.size() > 0) {
                 pathSet.forEach(path -> {
-                    try {
-                        logger.info("修改文件'{}'中'{}'表的'{}'字段在SELECT语句中为'NULL AS {}'", path.toString(), tableName, fieldName, fieldName);
-                        byte[] bytes = Files.readAllBytes(path);
-                        String sourceContent = new String(bytes, "UTF-8");
-
-                        Set<String> fieldNameSet = new HashSet();
-                        fieldNameSet.add(fieldName);
-
-                        RefactorNullAsField refactorNullAsField = new RefactorNullAsField();
-                        refactorNullAsField.setTableName(tableName);
-                        refactorNullAsField.setFieldNameSet(fieldNameSet);
-                        String targetContent = refactorNullAsField.refactor(sourceContent);
-
-                        Files.write(path, targetContent.getBytes("UTF-8"), StandardOpenOption.CREATE_NEW);
-                    } catch (IOException e) {
-                        logger.warn("修改文件'{}'中'{}'表的'{}'字段在SELECT语句中为'NULL AS {}'时发生异常: {}", path.toString(), tableName, fieldName, fieldName, e);
-                    }
+                    logger.info("修改文件'{}'中'{}'表的'{}'字段在SELECT语句中为'NULL AS {}'", path.toString(), tableName, fieldName, fieldName);
+                    Set<String> fieldNameSet = new HashSet();
+                    fieldNameSet.add(fieldName);
+                    FieldNullAsRefactor fieldNullAsRefactor = new FieldNullAsRefactor();
+                    fieldNullAsRefactor.setTableName(tableName);
+                    fieldNullAsRefactor.setFieldNameSet(fieldNameSet);
+                    fieldNullAsRefactor.setSourcePath(path);
+                    fieldNullAsRefactor.setTargetPath(path);
+                    fieldNullAsRefactor.process();
                 });
             }else{
                 logger.warn("当前路径下所有目录中没有名为'" + tableNameTextField.getText() + ".dtsx'的文件.");

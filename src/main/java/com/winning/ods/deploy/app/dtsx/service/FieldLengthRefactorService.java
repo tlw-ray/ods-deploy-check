@@ -1,8 +1,9 @@
 package com.winning.ods.deploy.app.dtsx.service;
 
 import com.winning.ods.deploy.app.check.core.FieldChecker;
-import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
-import com.winning.ods.deploy.app.dtsx.core.TableAlter;
+import com.winning.ods.deploy.app.dtsx.core.FieldLengthRefactor;
+import com.winning.ods.deploy.app.dtsx.core.FieldLengthAlter;
+import com.winning.ods.deploy.app.dtsx.core.FieldNullAsRefactor;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
 import com.winning.ods.deploy.dao.EtlRepository;
 import com.winning.ods.deploy.dao.Repository;
@@ -22,7 +23,7 @@ import java.util.Set;
  * Created by tlw@winning.com.cn on 2017/6/20.
  * 对单个表的字段长度进行重构
  */
-public class RefactorFieldLengthService {
+public class FieldLengthRefactorService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -43,11 +44,13 @@ public class RefactorFieldLengthService {
         Map<Pair<String, String>, Field> sourceFieldMap = bizRepository.fetchIndexedFieldInfo(tableNameSet);
         Map<Pair<String, String>, Field> targetFieldMap = odsRepository.fetchIndexedFieldInfo(tableNameSet);
 
-        //进行字段长度检查
+        //进行字段差异检查
         FieldChecker fieldChecker = new FieldChecker();
         fieldChecker.setSourceFieldMap(sourceFieldMap);
         fieldChecker.setTargetFieldMap(targetFieldMap);
         fieldChecker.process();
+
+        //进行字段长度修正
         fieldChecker.getLengthConflictFieldSet().forEach(tableField -> {
             Field odsField = targetFieldMap.get(tableField);
             Field bizField = sourceFieldMap.get(tableField);
@@ -74,24 +77,24 @@ public class RefactorFieldLengthService {
                     if(pathSet != null && pathSet.size() > 0){
                         pathSet.forEach(path -> {
                             //进行DTSX文件中字段长度的替换处理
-                            RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-                            refactorFieldLength.setSourcePath(path);
-                            refactorFieldLength.setTargetPath(path);
-                            refactorFieldLength.setFieldName(odsFieldName);
-                            refactorFieldLength.setDataType(dataType);
-                            refactorFieldLength.setTargetLength(bizFieldLength);
-                            refactorFieldLength.process();
+                            FieldLengthRefactor fieldLengthRefactor = new FieldLengthRefactor();
+                            fieldLengthRefactor.setSourcePath(path);
+                            fieldLengthRefactor.setTargetPath(path);
+                            fieldLengthRefactor.setFieldName(odsFieldName);
+                            fieldLengthRefactor.setDataType(dataType);
+                            fieldLengthRefactor.setTargetLength(bizFieldLength);
+                            fieldLengthRefactor.process();
                         });
 
                         //输出对ODS数据库对应字段进行长度扩充
-                        TableAlter tableAlter = new TableAlter();
-                        tableAlter.setOdsRepository(odsRepository);
-                        tableAlter.setTableName(odsTableName);
-                        tableAlter.setFieldName(odsFieldName);
-                        tableAlter.setDataType(dataType);
-                        tableAlter.setTargetLength(bizFieldLength);
+                        FieldLengthAlter fieldLengthAlter = new FieldLengthAlter();
+                        fieldLengthAlter.setOdsRepository(odsRepository);
+                        fieldLengthAlter.setTableName(odsTableName);
+                        fieldLengthAlter.setFieldName(odsFieldName);
+                        fieldLengthAlter.setDataType(dataType);
+                        fieldLengthAlter.setTargetLength(bizFieldLength);
                         try {
-                            tableAlter.process();
+                            fieldLengthAlter.process();
                         } catch (Exception e) {
                             ST warnST = new ST("对ODS中对应业务系统'<bizName>'的表'<odsTableName>'的'<odsFieldName>'字段长度由'<odsFieldLength>'扩为'<bizFieldLength>'时发生异常。");
                             warnST.add("bizName", bizName);
@@ -109,7 +112,6 @@ public class RefactorFieldLengthService {
                         warnST.add("odsFieldName", odsFieldName);
                         logger.warn(warnST.render());
                     }
-
                 }else{
                     ST warnST = new ST("暂时不支持在ODS中对业务系统'<bizName>'的表'<odsTableName>'的'<odsFieldType>'类型的字段'<odsFieldName>'进行长度类型转换，目前仅支持char,varchar,nvarchar类型。");
                     warnST.add("bizName", bizName);
@@ -121,7 +123,8 @@ public class RefactorFieldLengthService {
                 }
             }
         });
-        System.out.println("处理完毕...");
+
+        logger.info("处理完毕...");
     }
 
     public void setEtlRepository(EtlRepository etlRepository) {

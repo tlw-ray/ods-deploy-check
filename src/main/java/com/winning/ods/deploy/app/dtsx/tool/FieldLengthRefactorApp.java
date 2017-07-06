@@ -1,7 +1,7 @@
 package com.winning.ods.deploy.app.dtsx.tool;
 
 import com.winning.javafx.SpinnerAutoCommit;
-import com.winning.ods.deploy.app.dtsx.core.RefactorFieldLength;
+import com.winning.ods.deploy.app.dtsx.core.FieldLengthRefactor;
 import com.winning.ods.deploy.app.dtsx.core.TableFileMapping;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -25,10 +25,10 @@ import java.util.Set;
 /**
  * Created by tlw@winning.com.cn on 2017/6/22.
  */
-public class RefactorFieldLengthApp extends Application{
+public class FieldLengthRefactorApp extends Application{
 
     public static void main(String[] args) throws IOException {
-        RefactorFieldLengthApp.launch(args);
+        FieldLengthRefactorApp.launch(args);
     }
 
     Logger logger = LoggerFactory.getLogger(getClass());
@@ -73,13 +73,13 @@ public class RefactorFieldLengthApp extends Application{
                 msgST.add("length", targetLength);
                 String msg = msgST.render();
                 logger.info(msg);
-                RefactorFieldLength refactorFieldLength = new RefactorFieldLength();
-                refactorFieldLength.setSourcePath(path);
-                refactorFieldLength.setTargetPath(path);
-                refactorFieldLength.setFieldName(fieldName);
-                refactorFieldLength.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
-                refactorFieldLength.setTargetLength(targetLength);
-                refactorFieldLength.process();
+                FieldLengthRefactor fieldLengthRefactor = new FieldLengthRefactor();
+                fieldLengthRefactor.setSourcePath(path);
+                fieldLengthRefactor.setTargetPath(path);
+                fieldLengthRefactor.setFieldName(fieldName);
+                fieldLengthRefactor.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
+                fieldLengthRefactor.setTargetLength(targetLength);
+                fieldLengthRefactor.process();
                 });
             }else{
                 logger.warn("当前路径下所有目录中没有名为'"+tableNameTextField.getText()+".dtsx'的文件.");

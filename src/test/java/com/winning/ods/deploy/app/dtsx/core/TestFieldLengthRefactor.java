@@ -1,4 +1,4 @@
-package com.winning.ods.deploy.app.dtsx;
+package com.winning.ods.deploy.app.dtsx.core;
 
 import com.winning.ods.deploy.app.dtsx.core.FieldLengthRefactor;
 import org.junit.Assert;

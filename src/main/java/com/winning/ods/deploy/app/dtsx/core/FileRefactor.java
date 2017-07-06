@@ -11,7 +11,7 @@ import java.nio.file.StandardOpenOption;
 /**
  * Created by tlw@winning.com.cn on 2017/6/23.
  */
-public abstract class AbstractRefactor {
+public abstract class FileRefactor {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 

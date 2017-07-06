@@ -1,6 +1,6 @@
 package com.winning.ods.deploy.app.check.service;
 
-import com.winning.ods.deploy.app.check.core.TimestampFieldCheck;
+import com.winning.ods.deploy.app.check.core.TimeTempFieldCheck;
 import com.winning.ods.deploy.dao.EtlRepository;
 import com.winning.ods.deploy.domain.FieldCheckResult;
 import org.apache.commons.csv.CSVFormat;
@@ -25,7 +25,7 @@ public class TimeTempFieldCheckService{
     protected String targetBizName;
     protected EtlRepository etlRepository;
 
-    protected TimestampFieldCheck timeTempFieldCheck = new TimestampFieldCheck();
+    protected TimeTempFieldCheck timeTempFieldCheck = new TimeTempFieldCheck();
 
     protected PrintWriter printWriter = new PrintWriter(System.out);
 

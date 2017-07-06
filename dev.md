@@ -83,7 +83,7 @@
                 - TimeTempFieldCheckService TimeTemp字段缺失检查服务，能够连接到具体的库并根据检查结果输出日志
             - ConnectCheckApp 连接检查App： 带有界面，能够让用户输入连接信息并检测连接成功状态
             - FieldCheckMain 字段检查Main函数: 检查ETL管理库中配置的业务库字段缺失、类型冲突、长度冲突并生成报告
-        - dtsx  DTSX调包工具
+        - dtsx  DTSX调包程序
             - core 核心功能
                 - FileRefactor 文件重构: 从一个文件进行某些操作，删除该文件，将新的文件写入
                 - FieldLengthRefactor 字段长度重构: 将DTSX文件内容中指定字段的长度改为目标长度

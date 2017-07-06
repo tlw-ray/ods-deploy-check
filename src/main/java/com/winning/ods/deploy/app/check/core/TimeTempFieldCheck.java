@@ -10,7 +10,7 @@ import java.util.TreeSet;
  * Created by tlw@winning.com.cn on 2017/6/14.
  * 检查名为timetemp的字段在业务系统指定表中的缺失情况
  */
-public class TimestampFieldCheck {
+public class TimeTempFieldCheck {
 
     protected Set<Pair<String, String>> definedTimestampSet;             //ETL定义的表
     protected Set<Pair<String, String>> sourceTimestampSet;              //数据源字段(业务系统)

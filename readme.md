@@ -8,7 +8,7 @@
 
 - 生成ODS配置文件
 - 分析业务库到ODS库差异报告
-- 修正字段长度的不一致信息
+- 批量修改业务库字段短于ODS库的字段长度及这些字段在DTSX中的长度定义
 
 ## 问题处理
 
@@ -21,6 +21,22 @@
 - 日志级别说明:
 	- DOS窗口输出程序操作结果, 是INFO级别日志
 	- logs目录下的*.html日志输出程序进行的主要操作记录, 是DEBUG级别日志
+
+## 相关SQL指令
+
+1. 改表字段长度:
+
+    //将表ZY_BRSYK中字段pzh2最大长度设为32
+
+    alter table ZY_BRSYK alter column pzh2 varchar(32);
+
+2. 添加TimeTemp字段语句:
+
+    //为表CPOE_CQYZK加入TIMETEMP字段:
+
+    if not exists(select 1 from syscolumns where name='TIMETEMP' and id=OBJECT\_ID('CPOE\_CQYZK'))
+     alter table CPOE_CQYZK add TIMETEMP rowversion
+    GO
 
 ## 操作指南
 
@@ -44,14 +60,17 @@
 	    - 报告的结果会生成到数据库
 	    - 当前目录下会产生report.csv包含差异分析结果
 
-    - **自动修正字段长度问题:**
+    - **批量修正字段长度问题:**
 
-        - 拷贝HOSPITAL_DW目录到当前路径下
-            - 注意: 这些文件不要有**只读**属性
-        - 运行**"dtsx修正字段长度.bat"**分析业务库到ODS库差异.该程序会执行:
+        - 运行**"dtsx修正字段长度.bat"**该程序会执行:
             - 对比源库与目标库已定义表的字段长度
             - 当目标库的字段长度小于源库中的表时, 修改表中该字段的长度
             - 修改当前路径下,该表名.dtsx文件中使用到该字段的长度为源表定义的长度
+    -  **批量修正业务系统缺字段，字段NullAs问题:**
+    		
+		- 运行**"dtsx修正字段NullAs.bat"**该程序会执行:
+            - 对比源库与目标库已定义表的字段缺失
+            - 当源库缺少目标库定义的字段时，源库的DTSX中"select fieldName"语句改为"select null as fieldName ..."模式
 
 ## 附带界面工具
 
@@ -68,20 +87,14 @@
 
 - DTSX字段长度批量修改工具：
 
-    - 第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下
-       - 注意: 这些文件不要有**只读**属性
-
-    - 第二步: 运行**"dtsx_字段长度.bat"**, 看到如下界面:<br>
+    - 运行**"dtsx_字段长度.bat"**, 看到如下界面:<br>
         ![](screenshot/refactorDTSX-ui.jpg)
         - 输入表名、字段名、字段类型、目标长度
         - 点击"批量修改"按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的指定字段长度为目标长度
 
 - DTSX字段替换为NULL AS工具:
 
-    - 第一步: 拷贝包含*.dtsx的目录例如HOSPITAL_DW目录到当前路径下
-       - 注意: 这些文件不要有**只读**属性
-
-    - 第二步: 运行**"dtsx_字段NullAs.bat"**, 看到如下界面:<br>
+    - 运行**"dtsx_字段NullAs.bat"**, 看到如下界面:<br>
         ![](screenshot/dtsxFieldNullAs.jpg)
         - 输入表名、字段名
         - 点击"批量NullAs"按钮，该程序会寻找当前路径下所有该表名大写的dtsx文件，并替换其中的Select语句中该字段的选择语句为'NULL AS [fieldName]',解决当源数据库中缺少字段，导致报错的问题

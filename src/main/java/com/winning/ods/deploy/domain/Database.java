@@ -26,6 +26,8 @@ public class Database {
     protected String instance;
     protected String name;
 
+    //TODO 这几个生成连接字符串的方法应该移到ConnectionStringUtil方法中去, 不应该放在领域模型里
+
     public String getJdbcConnectionString(){
         //https://docs.microsoft.com/en-us/sql/connect/jdbc/building-the-connection-url
         //Examples:

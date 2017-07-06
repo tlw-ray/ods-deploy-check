@@ -17,7 +17,7 @@ import java.util.List;
  *  1. 修改DTSX中的字段长度
  *  2. 修改ODS表的字段长度
  */
-public class RefactorFieldLengthMain {
+public class FieldLengthRefactorMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
@@ -44,7 +44,7 @@ public class RefactorFieldLengthMain {
                 }
             });
         }else{
-            Logger logger = LoggerFactory.getLogger(RefactorFieldLengthMain.class);
+            Logger logger = LoggerFactory.getLogger(FieldLengthRefactorMain.class);
             logger.warn("没有能够从管理库获得任何业务系统数据库配置.");
         }
     }

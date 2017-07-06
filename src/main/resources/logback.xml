@@ -1,5 +1,6 @@
 <configuration>
     <timestamp key="bySecond" datePattern="yyyyMMddHHmmss"/>
+    <!-- <shutdownHook /> -->
     <!--
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${user.dir}\logs\${applicationName}${bySecond}.log</file>

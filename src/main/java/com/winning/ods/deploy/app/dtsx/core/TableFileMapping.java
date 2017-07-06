@@ -3,6 +3,8 @@ package com.winning.ods.deploy.app.dtsx.core;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.JAXB;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,6 +27,11 @@ public class TableFileMapping {
     Map<String, Set<Path>> tablePathMap;
 
     public void init() {
+        File file = new File("config/dtsxHome.xml");
+        if(file.exists()){
+            home = JAXB.unmarshal(file, String.class);
+        }
+
         tablePathMap = new HashMap();
         Path rootPath = Paths.get(home);
         traversal(rootPath);

@@ -4,6 +4,5 @@ target/
 *.zip
 HOSPITAL_DW/
 ConfigFile/
-ods-tool-release/
 releases/
 /logs

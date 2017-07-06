@@ -31,11 +31,11 @@ public class TestTimestampLack {
         targetFieldMap.put(Repository.createTableFieldIndex(field1), field1);
         targetFieldMap.put(Repository.createTableFieldIndex(field2), field2);
 
-        TimestampFieldCheck timestampFieldCheck = new TimestampFieldCheck();
-        timestampFieldCheck.setDefinedTimestampSet(targetFieldMap.keySet());
-        timestampFieldCheck.setSourceTimestampSet(sourceFieldMap.keySet());
-        timestampFieldCheck.process();
-        Set<Pair<String, String>> lackTimestamp = timestampFieldCheck.getLackTimeTemp();
+        TimeTempFieldCheck timeTempFieldCheck = new TimeTempFieldCheck();
+        timeTempFieldCheck.setDefinedTimestampSet(targetFieldMap.keySet());
+        timeTempFieldCheck.setSourceTimestampSet(sourceFieldMap.keySet());
+        timeTempFieldCheck.process();
+        Set<Pair<String, String>> lackTimestamp = timeTempFieldCheck.getLackTimeTemp();
         Assert.assertEquals(1, lackTimestamp.size());
         Assert.assertTrue(lackTimestamp.contains(Repository.createTableFieldIndex(field2)));
     }

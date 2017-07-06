@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * Created by tlw@winning.com.cn on 2017/6/20.
  * alter table 语句生成，可执行检查和执行
  */
-public class TableAlter {
+public class FieldLengthAlter {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
