@@ -1,8 +1,6 @@
 package com.winning.ods.deploy.app.dtsx.core;
 
 import com.winning.ods.deploy.dao.Repository;
-import com.winning.ods.deploy.domain.Database;
-import com.winning.ods.deploy.util.SqlServer;
 import com.winning.ods.deploy.util.SqlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +23,10 @@ public class FieldLengthAlter {
     protected int targetLength;
 
     public void process() throws SQLException, ClassNotFoundException {
-//        //仅输出改表语句
-        String alterTableQuery = SqlUtil.generateAlterTableQuery(tableName, fieldName, dataType, targetLength);
-//        System.out.println(alterTableQuery);
-
         //检查表中是否已经有数据
         if(odsRepository.hasRow(tableName)){
+            //修改字段长度 TODO 是否会not null
+            String alterTableQuery = SqlUtil.generateAlterTableQuery(tableName, fieldName, dataType, targetLength, false);
             ST warnMessageST = new ST("DOS表'<tableName>'已经包含数据，请根据情况手动执行语句<alterTable>来修改字段<fieldName>的长度为<targetLength>。");
             warnMessageST.add("tableName", tableName);
             warnMessageST.add("alterTable", alterTableQuery);
@@ -39,8 +35,7 @@ public class FieldLengthAlter {
             String warnMessage = warnMessageST.render();
             logger.warn(warnMessage);
         }else{
-            odsRepository.executeQuery(alterTableQuery);
-            logger.info(alterTableQuery);
+            odsRepository.alterPrimaryColumnLength(tableName, fieldName, dataType, targetLength);
         }
     }
 

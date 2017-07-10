@@ -66,20 +66,20 @@ public class FieldLengthRefactorApp extends Application{
             Set<Path> pathSet = tableFileMapping.getPathSet(tableName);
             if (pathSet != null && pathSet.size() > 0) {
                 pathSet.forEach(path -> {
-                ST msgST = new ST("修改'<path>': 更新'<field>'的<type>长度为'<length>'");
-                msgST.add("path", path.toString());
-                msgST.add("type", fieldTypeComboBox.getSelectionModel().getSelectedItem());
-                msgST.add("field", fieldName);
-                msgST.add("length", targetLength);
-                String msg = msgST.render();
-                logger.info(msg);
-                FieldLengthRefactor fieldLengthRefactor = new FieldLengthRefactor();
-                fieldLengthRefactor.setSourcePath(path);
-                fieldLengthRefactor.setTargetPath(path);
-                fieldLengthRefactor.setFieldName(fieldName);
-                fieldLengthRefactor.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
-                fieldLengthRefactor.setTargetLength(targetLength);
-                fieldLengthRefactor.process();
+                    ST msgST = new ST("修改'<path>'，字段'<field>'，类型'<type>'的长度为'<length>'");
+                    msgST.add("path", path.toString());
+                    msgST.add("type", fieldTypeComboBox.getSelectionModel().getSelectedItem());
+                    msgST.add("field", fieldName);
+                    msgST.add("length", targetLength);
+                    String msg = msgST.render();
+                    logger.info(msg);
+                    FieldLengthRefactor fieldLengthRefactor = new FieldLengthRefactor();
+                    fieldLengthRefactor.setSourcePath(path);
+                    fieldLengthRefactor.setTargetPath(path);
+                    fieldLengthRefactor.setFieldName(fieldName);
+                    fieldLengthRefactor.setDataType(fieldTypeComboBox.getSelectionModel().getSelectedItem());
+                    fieldLengthRefactor.setTargetLength(targetLength);
+                    fieldLengthRefactor.process();
                 });
             }else{
                 logger.warn("当前路径下所有目录中没有名为'"+tableNameTextField.getText()+".dtsx'的文件.");

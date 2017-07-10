@@ -20,13 +20,17 @@ public class SqlUtil {
         stringBuilder.append(")");
         return stringBuilder.toString();
     }
-    public static String generateAlterTableQuery(String tableName, String columnName, String dataType, int targetLength){
+    public static String generateAlterTableQuery(String tableName, String columnName, String dataType, int targetLength, boolean notNull){
         String ALTER_TABLE = "ALTER TABLE <tableName> ALTER COLUMN <columnName> <dataType>(<length>)";
         ST alterTableST = new ST(ALTER_TABLE);
         alterTableST.add("tableName", tableName);
         alterTableST.add("columnName", columnName);
         alterTableST.add("dataType", dataType);
         alterTableST.add("length", targetLength);
-        return alterTableST.render();
+        String result = alterTableST.render();
+        if(notNull){
+            result += " not null";
+        }
+        return result;
     }
 }

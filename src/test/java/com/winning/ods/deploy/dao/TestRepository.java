@@ -31,4 +31,12 @@ public class TestRepository {
         Map<Pair<String, String>, Field> fieldMap =repository.fetchIndexedFieldInfo(tableNameSet);
         Assert.assertTrue(fieldMap.size()>0);
     }
+
+    @Test
+    public void testChangeFieldLengthWithPK() throws SQLException {
+        EtlRepository etlRepository = new EtlRepository();
+        Repository repository = etlRepository.fetchOdsRepository();
+        System.out.println(repository.getBizDatabase().getBizName());
+        repository.alterPrimaryColumnLength("BA_DMZDK", "yljgdm", "varchar", 20);
+    }
 }
