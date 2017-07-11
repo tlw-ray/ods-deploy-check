@@ -86,6 +86,7 @@ public class FieldLengthRefactorService {
                             fieldLengthRefactor.process();
                         });
 
+
                         //TODO 是否not null?
                         //输出对ODS数据库对应字段进行长度扩充
                         FieldLengthAlter fieldLengthAlter = new FieldLengthAlter();
